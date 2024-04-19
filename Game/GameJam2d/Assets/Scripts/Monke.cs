@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Monke : MonoBehaviour
+public class Monke : MonoBehaviour, IInteractable
 {
     private List<int> cards = new List<int>(4);
     
@@ -32,5 +32,10 @@ public class Monke : MonoBehaviour
         Card.Type card = (Card.Type)cards[index];
 
         return card;
+    }
+
+    public void Clicked()
+    {
+        //popup
     }
 }

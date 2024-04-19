@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class CardStash 
+public class CardStash : MonoBehaviour
 {
 
     private List<int> cards;
