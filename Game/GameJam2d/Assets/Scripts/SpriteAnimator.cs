@@ -28,6 +28,7 @@ public class SpriteAnimator : MonoBehaviour
     {
         Timer = 0;
         reDelay();
+        
     }
 
     // Update is called once per frame
