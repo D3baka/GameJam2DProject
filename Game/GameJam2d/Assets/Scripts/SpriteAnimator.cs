@@ -28,6 +28,13 @@ public class SpriteAnimator : MonoBehaviour
     {
         Timer = 0;
         reDelay();
+
+        UserInput.Instance.OnInteractAction += Instance_OnInteractAction;
+    }
+
+    private void Instance_OnInteractAction(object sender, System.EventArgs e)
+    {
+        throw new System.NotImplementedException();
     }
 
     // Update is called once per frame
