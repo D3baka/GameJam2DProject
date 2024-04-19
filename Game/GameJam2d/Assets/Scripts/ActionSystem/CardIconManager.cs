@@ -18,4 +18,16 @@ public class CardIconManager : MonoBehaviour
         
         return cardIcons[(int)type];
     }
-}
+
+    private void Awake()
+    {
+        if (UserInput.Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Debug.LogError("Too many GameManager Instances: " + UserInput.Instance);
+        }
+    }
+    }
