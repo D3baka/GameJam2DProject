@@ -5,8 +5,10 @@ using UnityEngine;
 public class HandCard : MonoBehaviour, IInteractable
 {
 
-    [SerializeField] private Hand hand;
-    [SerializeField] private int index;
+    [SerializeField] public Hand hand;
+    [SerializeField] public int index;
+
+    private Card.Type type;
 
 
 
@@ -22,8 +24,18 @@ public class HandCard : MonoBehaviour, IInteractable
         
     }
 
-    override public void Clicked()
+    public void Clicked()
     {
        hand.playCard(index);
+    }
+
+    public void setType(Card.Type type)
+    {
+        this.type = type;
+    }
+
+    public Card.Type getType()
+    {
+        return this.type;
     }
 }
