@@ -46,10 +46,10 @@ public class UserInput : MonoBehaviour
         LoadAllOverrides();
 
         // current name overrides
-        buttonLabelMappings.Add("Left Arrow", "Å©");
-        buttonLabelMappings.Add("Right Arrow", "Å®");
-        buttonLabelMappings.Add("Up Arrow", "Å™");
-        buttonLabelMappings.Add("Down Arrow", "Å´");
+        buttonLabelMappings.Add("Left Arrow", "Åa");
+        buttonLabelMappings.Add("Right Arrow", "Åd");
+        buttonLabelMappings.Add("Up Arrow", "Åw");
+        buttonLabelMappings.Add("Down Arrow", "s");
         buttonLabelMappings.Add("Escape", "esc");
     }
 
