@@ -5,12 +5,12 @@ using UnityEngine;
 public class Hand : MonoBehaviour
 {
 
-    private int[] cards;
+    [SerializeField] private HandCard[] cards;
     private Monke[] monkes;
 
     void Start()
     {
-        cards = new int[4];
+        cards = new HandCard[4];
         monkes = new Monke[4];
 
         for (int i = 0; i < monkes.Length; i++)
@@ -19,5 +19,10 @@ public class Hand : MonoBehaviour
         }
     }
 
+
+    public void playCard(int index)
+    {
+        Debug.Log(index);
+    }
 
 }
