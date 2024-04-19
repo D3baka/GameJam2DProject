@@ -53,27 +53,27 @@ public class Grid
         }
     }
 
-    bool GetTileBlockerFromPosition(int _x, int _y, out Tileblocker tileblocker)
+    public bool GetTileBlockerFromPosition(int _x, int _y, out ITileblocker tileblocker)
     {
         return tiles[_x, _y].GetTileBlocker(out tileblocker);
     }
 
-    bool IsPositionBlocked(int _x, int _y)
+    public bool IsPositionBlocked(int _x, int _y)
     {
         return tiles[_x, _y].IsBlocked;
     }
 
-    bool SetTileblockerAtPosition(int _x, int _y, Tileblocker newTileblocker, out Tileblocker _tileblocker)
+    public bool SetTileblockerAtPosition(int _x, int _y, ITileblocker newTileblocker, out ITileblocker _tileblocker)
     {        
         return tiles[_x, _y].Set(out _tileblocker, newTileblocker);
     }
 
-    bool FreePosition(int _x, int _y, out Tileblocker tileblocker)
+    public bool FreePosition(int _x, int _y, out ITileblocker tileblocker)
     {
         return tiles[_x, _y].Clear(out tileblocker);
     }
 
-    private Vector3 GetWorldPosition(int x, int y)
+    public Vector3 GetWorldPosition(int x, int y)
     {
         return new Vector3(x, y) * cellSize + originPosition;
     }

@@ -1,6 +1,6 @@
 public class Tile
 {
-    private Tileblocker tileblocker;
+    private ITileblocker tileblocker;
     private readonly int xPosition;
     private readonly int yPosition;
 
@@ -14,7 +14,7 @@ public class Tile
         yPosition = _yPosition;
     }
 
-    public Tile(Tileblocker _tileblocker, int _xPosition, int _yPosition) 
+    public Tile(ITileblocker _tileblocker, int _xPosition, int _yPosition) 
     {
         IsBlocked = true;
         tileblocker = _tileblocker;
@@ -22,13 +22,13 @@ public class Tile
         yPosition = _yPosition;
     }
 
-    public bool GetTileBlocker(out Tileblocker _tileblocker)
+    public bool GetTileBlocker(out ITileblocker _tileblocker)
     {
         _tileblocker = tileblocker;
         return IsBlocked;
     }
 
-    public bool Clear(out Tileblocker _tileblocker)
+    public bool Clear(out ITileblocker _tileblocker)
     {
         _tileblocker = tileblocker;
         bool result = IsBlocked;
@@ -37,7 +37,7 @@ public class Tile
         return result;
     }
 
-    public bool Set(out Tileblocker _tileblocker, Tileblocker newTileBlocker) 
+    public bool Set(out ITileblocker _tileblocker, ITileblocker newTileBlocker) 
     {
         _tileblocker = tileblocker;
         tileblocker = newTileBlocker;
