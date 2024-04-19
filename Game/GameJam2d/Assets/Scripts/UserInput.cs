@@ -68,8 +68,6 @@ public class UserInput : MonoBehaviour
         OnInteractAction?.Invoke(this, EventArgs.Empty);
     }
 
-   
-
     public Vector2 GetMovevementVectorNormalized() {
         
         Vector2 direction = userInputActions.PlayerInput.WASD.ReadValue<Vector2>();        
