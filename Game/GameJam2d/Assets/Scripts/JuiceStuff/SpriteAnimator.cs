@@ -28,7 +28,9 @@ public class SpriteAnimator : MonoBehaviour
     {
         Timer = 0;
         reDelay();
-        
+
+        renderer = GetComponent<SpriteRenderer>();
+
     }
 
     // Update is called once per frame

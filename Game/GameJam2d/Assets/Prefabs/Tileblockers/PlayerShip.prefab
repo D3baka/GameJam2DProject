@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 1839049193189570549}
   - component: {fileID: 5251459996750595589}
   - component: {fileID: 4430483957899561368}
+  - component: {fileID: 4299672882737140868}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -184,12 +185,30 @@ MonoBehaviour:
   idleSprites:
   - {fileID: 1664308544, guid: ee1ae29de25aae24e823536f69f87deb, type: 3}
   - {fileID: 1480736203, guid: ee1ae29de25aae24e823536f69f87deb, type: 3}
-  rnd: {fileID: 5251459996750595589}
+  renderer: {fileID: 0}
   delaySeconds: 0.5
   delaySecondsMin: 0.3
   delaySecondsMax: 0.8
   randomize: 1
   extraAnimation: []
+--- !u!114 &4299672882737140868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4000444415668272350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84779d4289c8edf45933f6c9365d3764, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delaySeconds: 0.5
+  delaySecondsMin: 0.3
+  delaySecondsMax: 0.8
+  randomize: 1
+  startSize: {x: 1, y: 1}
+  endSize: {x: 1.1, y: 1.1}
 --- !u!1 &7030034078573729425
 GameObject:
   m_ObjectHideFlags: 0
