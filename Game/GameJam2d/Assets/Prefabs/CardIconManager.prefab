@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2812388273830370425
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8726294858815964163}
+  - component: {fileID: 3095811751475120273}
+  m_Layer: 0
+  m_Name: CardIconManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8726294858815964163
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2812388273830370425}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.6406988, y: -1.5898967, z: -0.11299635}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3095811751475120273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2812388273830370425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 481e3e5f2589ecf438120f215a1b494c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardIcons:
+  - {fileID: -22296786, guid: aff13b6d27e01eb44be26bb34c626448, type: 3}
+  - {fileID: 148382162, guid: 0d22374c3e7d5fc428731a725e69ff50, type: 3}
+  - {fileID: -1330878914, guid: 0d22374c3e7d5fc428731a725e69ff50, type: 3}
+  - {fileID: 642326657, guid: 0d22374c3e7d5fc428731a725e69ff50, type: 3}
+  - {fileID: 1846484700, guid: 0d22374c3e7d5fc428731a725e69ff50, type: 3}
+  - {fileID: 624822704, guid: 0d22374c3e7d5fc428731a725e69ff50, type: 3}
+  - {fileID: 420221330, guid: 0d22374c3e7d5fc428731a725e69ff50, type: 3}
+  - {fileID: 939293642, guid: 0d22374c3e7d5fc428731a725e69ff50, type: 3}
+  - {fileID: -341895655, guid: 0d22374c3e7d5fc428731a725e69ff50, type: 3}
+  - {fileID: -1736365323, guid: 0d22374c3e7d5fc428731a725e69ff50, type: 3}
+  - {fileID: 428174571, guid: 0d22374c3e7d5fc428731a725e69ff50, type: 3}
