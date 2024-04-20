@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private MainSceneUIManager mainSceneUIManager;
     private int playerHitpoints;
 
+    [SerializeField] private int coinCount;
+
     public GameState gameState {  get; private set; }  
     
     public class OnGameStateChangedEventArgs : EventArgs
@@ -74,6 +76,28 @@ public class GameManager : MonoBehaviour
             gridmanager.PlayerShoot();
             return;
         }
+    }
+
+    public void AddCoins(int amount)
+    {
+        coinCount += amount;
+    }
+
+    public void RemoveCoins(int amount)
+    {
+        if(coinCount - amount <= 0)
+        {
+            coinCount -= amount;
+        }
+        else
+        {
+            Debug.LogError("Cannot remove more coins than player has - use GetCoinAmount before calling this"); 
+        }
+    }
+
+    public int GetCoinAmount()
+    {
+        return coinCount;
     }
 
     public void PlayerHitByAsteroid()
