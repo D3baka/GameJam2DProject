@@ -26,7 +26,7 @@ public class Monke : MonoBehaviour, IInteractable, IStash
     public Card.Type drawCard()
     {
 
-        if (cards.Count != 4)
+        if (cards.Count != 3)
         {
             return Card.Type.BLANK;
         }
