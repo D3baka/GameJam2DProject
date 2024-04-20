@@ -442,6 +442,7 @@ public class Gridmanager : MonoBehaviour
     {
         Asteroid newAst = Instantiate(asteroid2);
         return newAst;
+    }
 
     private ITileblocker SpawnPlayerShip()
     {
@@ -575,9 +576,9 @@ public class Gridmanager : MonoBehaviour
     {
         Asteroid,
         AsteroidCenter,
-        WFCTileBlocker
+        WFCTileBlocker,
         PlayerShip,
-        Projectile,
+        Projectile
 
 
     }
