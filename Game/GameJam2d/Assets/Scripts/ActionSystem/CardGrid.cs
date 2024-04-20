@@ -14,6 +14,8 @@ public class CardGrid : MonoBehaviour
 
     [SerializeField] GameObject stashGO;
 
+    [SerializeField] float z = -6;
+
     private IStash stash;
 
     [SerializeField] GameObject cardTilePrefab;
@@ -35,45 +37,45 @@ public class CardGrid : MonoBehaviour
             for (int j = 0; j < grid.GetLength(1); j++)
             {
 
-                Vector3 pos = transform.localPosition + new Vector3(j * spacing, -i * spacing, 0);
+                Vector3 pos = transform.localPosition + new Vector3(j * spacing, -i * spacing, z);
 
                 if (i == 0)
                 {
                     if(j == 0)
                     {
-                        grid[i, j] = Instantiate(cornerTile, pos, Quaternion.identity);
+                        InstantiateTile(i,j,cornerTile,pos,Quaternion.identity);
                     }
                     else if(j == grid.GetLength(1)-1)
                     {
-                        grid[i, j] = Instantiate(cornerTile, pos, Quaternion.Euler(new Vector3(0, 0, -90)));
+                        InstantiateTile(i, j, cornerTile, pos, Quaternion.Euler(new Vector3(0, 0, -90)));
                     }
                     else
                     {
-                        grid[i, j] = Instantiate(edgeTile, pos, Quaternion.identity);
+                        InstantiateTile(i,j, edgeTile, pos, Quaternion.identity) ;
                     }
                 } else if (i ==  grid.GetLength(0)-1){
                     if (j == 0)
                     {
-                        grid[i, j] = Instantiate(cornerTile, pos, Quaternion.Euler(new Vector3(0, 0, 90)));
+                        InstantiateTile(i, j, cornerTile, pos, Quaternion.Euler(new Vector3(0, 0, 90)));
                     }
                     else if (j == grid.GetLength(1)-1)
                     {
-                        grid[i, j] = Instantiate(cornerTile, pos, Quaternion.Euler(new Vector3(0, 0, 180)));
+                        InstantiateTile(i, j, cornerTile, pos, Quaternion.Euler(new Vector3(0, 0, 180)));
                     }
                     else
                     {
-                        grid[i, j] = Instantiate(edgeTile, pos, Quaternion.Euler(new Vector3(0, 0, 180)));
+                        InstantiateTile(i, j, edgeTile, pos, Quaternion.Euler(new Vector3(0, 0, 180)));
                     }
                 }
                 else
                 {
                     if(j == 0)
                     {
-                        grid[i, j] = Instantiate(edgeTile, pos, Quaternion.Euler(new Vector3(0, 0, 90)));
+                        InstantiateTile(i, j, edgeTile, pos, Quaternion.Euler(new Vector3(0, 0, 90)));
                     }
                     else if(j == grid.GetLength(1) - 1)
                     {
-                        grid[i, j] = Instantiate(edgeTile, pos, Quaternion.Euler(new Vector3(0, 0, -90)));
+                        InstantiateTile(i, j, edgeTile, pos, Quaternion.Euler(new Vector3(0, 0, -90)));
                     }
                     else
                     {
@@ -84,17 +86,23 @@ public class CardGrid : MonoBehaviour
         }
     }
 
+    private void InstantiateTile(int i, int j, GameObject prefab, Vector3 pos, Quaternion rot)
+    {
+        grid[i, j] = Instantiate(prefab, pos, rot);
+        grid[i, j].transform.parent = transform;
+    }
+
     public void AddEmptyTile(int x, int y)
     {
-        Vector3 pos = transform.localPosition + new Vector3(x * spacing, -y * spacing, 0);
-        GameObject tile = Instantiate(cardTilePrefab, pos, Quaternion.identity);
+        Vector3 pos = transform.localPosition + new Vector3(x * spacing, -y * spacing, z);
 
-        tile.GetComponent<CardTile>().setGridPos(x, y);
-        tile.GetComponent<CardTile>().setGrid(this);
-        tile.GetComponent<CardTile>().setStash(stash);
-        tile.GetComponent<CardTile>().setStackable(stacked);
+        InstantiateTile(y, x ,cardTilePrefab, pos, Quaternion.identity);
 
-        grid[y, x] = tile;
+        grid[y, x].GetComponent<CardTile>().setGridPos(x, y);
+        grid[y, x].GetComponent<CardTile>().setGrid(this);
+        grid[y, x].GetComponent<CardTile>().setStash(stash);
+        grid[y, x].GetComponent<CardTile>().setStackable(stacked);
+        
     }
 
     public void AddCard(Card.Type type)
