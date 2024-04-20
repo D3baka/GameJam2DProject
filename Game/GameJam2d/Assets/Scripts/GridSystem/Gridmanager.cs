@@ -9,7 +9,7 @@ public class Gridmanager : MonoBehaviour
 {
 
     [SerializeField] private Asteroid asteroid;
-    [SerializeField] private Asteroid asteroid2;
+    [SerializeField] private AsteroidCore asteroid2;
     [SerializeField] private WFCBlocker wfcBlocker;
 
     [SerializeField] private Asteroid asteroidPrefab;
@@ -44,8 +44,8 @@ public class Gridmanager : MonoBehaviour
 
         probability = new int[3];
         probability[0] = 100;
-        probability[1] = 30;
-        probability[2] = 20;
+        probability[1] = 10;
+        probability[2] = 80;
 
         wfcGridArray = new int[,]
         {
@@ -166,13 +166,46 @@ public class Gridmanager : MonoBehaviour
             for (int y = 0; y < empytRows; y++)
             {
                 ITileblocker blocker = null;
-                grid.FreePosition(x, y, out blocker);
-                Destroy(blocker.GetGameObject());
+                grid.GetTileBlockerFromPosition(x, y, out blocker);
+
+
+                WFCBlocker wfcBlocker = blocker as WFCBlocker;
+                
+                wfcBlocker.SetState(0);
+
+                updateNeighborsConstraints(wfcBlocker, y);
             }
         }
-       
+        for (int y = 0; y < empytRows; y++)
+        {
+            for (int x = 0; x < grid.width; x++)
+            {
+                ITileblocker blocker = null;
+                grid.FreePosition(x, y, out blocker);
+
+                int state = (blocker as WFCBlocker).GetState();
+
+                Destroy(blocker.GetGameObject());
+
+                switch (state)
+                {
+                    case 0:
+                        // do nothing because nothingness and empytness is in space as well in my thoughts 
+                        break;
+                    case 1:
+                        SpawnTileBlocker(SpaceGridTileBlocker.Asteroid, x, y);
+                        break;
+                    case 2:
+                        SpawnTileBlocker(SpaceGridTileBlocker.AsteroidCenter, x, y);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+        }
         // now iterate through remaining rows and do wfc collapse
-        for(int y = empytRows; y < grid.height; y++)
+        for (int y = empytRows; y < grid.height; y++)
         {
             collapseRow(y);
         }
@@ -312,6 +345,70 @@ public class Gridmanager : MonoBehaviour
         return lowestEntropyBlocker;
     }
 
+    private void generateNewLine()
+    {
+        // fill last line with wfc blocker
+        for(int x = 0; x < grid.width; x++)
+        {
+            SpawnTileBlocker(SpaceGridTileBlocker.WFCTileBlocker, x, grid.height-1);
+
+        }
+        bool change = true;
+        int y = grid.height - 1;
+        while (change)
+        {
+            change = false;
+            for (int x = 0; x < grid.width; x++)
+            {
+                ITileblocker blocker = null;
+                grid.GetTileBlockerFromPosition(x, y, out blocker);
+
+                WFCBlocker wfcBlocker = blocker as WFCBlocker;
+                int stateCount = wfcBlocker.GetPossibleStatesCount();
+
+                List<Vector2Int> neighbors = new List<Vector2Int>
+                {
+                    
+                    new Vector2Int(x, y - 1)  // below
+                };
+
+                foreach(var neighbor in neighbors)
+                {
+                    if (IsInGrid(neighbor.x, neighbor.y))
+                    {
+                        ITileblocker neighborBlocker;
+                        grid.GetTileBlockerFromPosition(neighbor.x, neighbor.y, out neighborBlocker);
+                        int state = 0;
+
+                        if ((neighborBlocker as Asteroid) != null)
+                            state = 1;
+                        else if ((neighborBlocker as AsteroidCore) != null)
+                            state = 2;
+                   
+
+                        WFCBlocker neighborToWfc = neighborBlocker as WFCBlocker;
+                        wfcBlocker.UpdatePossibleStatesBasedOnNeighbor(state, neighbor.x, neighbor.y);
+                    }
+                }
+               
+            
+
+                if (stateCount > wfcBlocker.GetPossibleStatesCount())
+                    change = true;
+
+            }
+
+            
+        }
+
+        Debug.Log("COLLAPSED READY");
+
+        collapseRow(y);
+
+        // get element with smallest Entropy
+       
+    }
+
 
     private void Start()
     { 
@@ -336,6 +433,8 @@ public class Gridmanager : MonoBehaviour
                 ITileblocker toMove;
                 if(grid.GetTileBlockerFromPosition(x,y, out toMove))
                 {
+                    Debug.Log("Testrn");
+                    Debug.Log(toMove.GetGameObject() == null);
                     if(toMove.GetGameObject().GetComponent<PlayerShip>() != null || toMove.GetGameObject().GetComponent<Projectile>() != null)
                     {
                         //Do nothing because we do not move the player or projectiles in turns
@@ -347,6 +446,8 @@ public class Gridmanager : MonoBehaviour
 
             }
         }
+
+        generateNewLine();
     }
 
     private void SpawnTileBlocker(SpaceGridTileBlocker toSpawn, int _x, int _y)
@@ -440,7 +541,7 @@ public class Gridmanager : MonoBehaviour
 
     private ITileblocker SpawnAsteroidMiddle()
     {
-        Asteroid newAst = Instantiate(asteroid2);
+        AsteroidCore newAst = Instantiate(asteroid2);
         return newAst;
     }
 
@@ -576,11 +677,11 @@ public class Gridmanager : MonoBehaviour
     {
         Asteroid,
         AsteroidCenter,
-        WFCTileBlocker,
+        
         PlayerShip,
-        Projectile
+        Projectile,
 
-
+        WFCTileBlocker,
     }
 
 
