@@ -214,6 +214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   asteroidPrefab: {fileID: 7383736909361889670, guid: cd4d44c3a8cdcb046b0c6f819d5f3d8e, type: 3}
   playerShipPrefab: {fileID: 3612751945791728011, guid: 7340d05a4ecfefc4ba1d3ddc8db36338, type: 3}
+  projectilePrefab: {fileID: 8308367002045720970, guid: 3847d95d4b0ce1d458502c122a93b002, type: 3}
 --- !u!1 &1096528908
 GameObject:
   m_ObjectHideFlags: 0

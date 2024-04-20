@@ -1,4 +1,5 @@
 using Debaka.Utils;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -7,10 +8,12 @@ public class Gridmanager : MonoBehaviour
 {
     [SerializeField] private Asteroid asteroidPrefab;
     [SerializeField] private  PlayerShip playerShipPrefab;
+    [SerializeField] private Projectile projectilePrefab;
     public static Gridmanager Instance { get; private set; }
 
     private Grid grid;
     private PlayerShip playerShip;
+    private List<Projectile> projectiles = new();
 
     private void Awake()
     {
@@ -36,6 +39,7 @@ public class Gridmanager : MonoBehaviour
     public void NextTurn()
     {
         TurnMovement();
+        MoveProjectiles();
     }
 
     private void TurnMovement()
@@ -47,9 +51,9 @@ public class Gridmanager : MonoBehaviour
                 ITileblocker toMove;
                 if(grid.GetTileBlockerFromPosition(x,y, out toMove))
                 {
-                    if(toMove.GetGameObject().GetComponent<PlayerShip>() != null)
+                    if(toMove.GetGameObject().GetComponent<PlayerShip>() != null || toMove.GetGameObject().GetComponent<Projectile>() != null)
                     {
-                        //Do nothing because we do not move the player in turns
+                        //Do nothing because we do not move the player or projectiles in turns
                         continue;
                     }
                 }
@@ -73,12 +77,30 @@ public class Gridmanager : MonoBehaviour
                 playerShip = tileblocker as PlayerShip;
                 break;
             default:
-                tileblocker = SpawnAsteroid();
+                tileblocker = null;
                 break;
                 
         }
         ITileblocker old;
-        grid.SetTileblockerAtPosition(_x, _y, tileblocker, out old);
+        if(grid.SetTileblockerAtPosition(_x, _y, tileblocker, out old))
+        {
+            //Something was there before - handle it!
+        }
+        tileblocker.SetGridPosition(new Vector2(_x, _y));
+        tileblocker.GetGameObject().transform.position = grid.GetWorldPosition(_x, _y) + new Vector3(grid.cellSize / 2, grid.cellSize / 2, 0);
+    }
+
+    private void SpawnTileBlocker(SpaceGridTileBlocker toSpawn, int _x, int _y, Projectile.FlightDirection direction)
+    {
+        ITileblocker tileblocker;        
+        tileblocker = SpawnProjectile(direction);
+        ITileblocker old;
+        if (grid.SetTileblockerAtPosition(_x, _y, tileblocker, out old))
+        {
+            //Something was there before - handle it!
+            OnCollision(tileblocker, old);
+
+        }
         tileblocker.SetGridPosition(new Vector2(_x, _y));
         tileblocker.GetGameObject().transform.position = grid.GetWorldPosition(_x, _y) + new Vector3(grid.cellSize / 2, grid.cellSize / 2, 0);
     }
@@ -103,16 +125,8 @@ public class Gridmanager : MonoBehaviour
             //if there is a  Tileblocker at the target position      
             if(result)
             {
-                //if either the thing we move or the thing we collide with is the player ship
-                if (atPositionBefore.GetGameObject().GetComponent<PlayerShip>() != null)
-                {
-                    //interact!!!
-                    OnShipCollidedWithTileBlocker(tileblocker);
-                }
-                if(tileblocker.GetGameObject().GetComponent<PlayerShip>() != null)
-                {
-                    OnShipCollidedWithTileBlocker(atPositionBefore);
-                }
+                OnCollision(tileblocker, atPositionBefore);                
+
             }
             tileblocker.SetGridPosition(new Vector2(newX, newY));
             tileblocker.GetGameObject().transform.position = grid.GetWorldPosition(newX, newY) + new Vector3(grid.cellSize / 2, grid.cellSize / 2, 0);
@@ -132,23 +146,85 @@ public class Gridmanager : MonoBehaviour
         return newPlayerShip;
     }
 
+    private ITileblocker SpawnProjectile(Projectile.FlightDirection direction)
+    {
+        Projectile newProjectile = Instantiate(projectilePrefab);
+        newProjectile.SetFlightDirection(direction);
+        projectiles.Add(newProjectile);
+        return newProjectile;
+    }
+
     private bool IsInGrid(int x, int y)
     {
         return x >= 0 && y >= 0 && x < grid.width && y < grid.height;
     }
 
-    private void OnShipCollidedWithTileBlocker(ITileblocker collidingBlocker)
+    private void OnCollision(ITileblocker moving, ITileblocker stationary)
     {
-        if(collidingBlocker.GetGameObject().GetComponent<Asteroid>() != null)
+        //if either the thing we move or the thing we collide with is the player ship
+        if (stationary.GetGameObject().GetComponent<PlayerShip>() != null)
+        {
+            //interact!!!
+            OnShipCollidedWithTileBlocker(moving);
+            return;
+        }
+        if (moving.GetGameObject().GetComponent<PlayerShip>() != null)
+        {
+            OnShipCollidedWithTileBlocker(stationary);
+            return;
+        }
+        DestroyTileBlocker(moving);
+        DestroyTileBlocker(stationary);        
+    }
+
+    private void OnShipCollidedWithTileBlocker(ITileblocker other)
+    {
+        if(other.GetGameObject().GetComponent<Asteroid>() != null)
         {
             Debug.Log("Ship hit Asteroid!!!");
-            DestroyTileBlocker(collidingBlocker);
+            DestroyTileBlocker(other);
         }        
     }
 
+    
+
     private void DestroyTileBlocker(ITileblocker tileblocker)
     {
+        int x = (int)tileblocker.GetGridPosition().x;
+        int y = (int)tileblocker.GetGridPosition().y;
+        if (IsInGrid(x, y))
+        {
+            ITileblocker old;
+            grid.FreePosition(x,y, out old);
+        }        
         Destroy(tileblocker.GetGameObject());
+    }
+
+    private void MoveProjectiles()
+    {
+        projectiles.RemoveAll(s => s == null);
+        foreach (var projectile in projectiles) 
+        {
+            switch (projectile.direction)
+            {
+                case Projectile.FlightDirection.UP:
+                    {
+                        ITileblocker old;
+                        MoveTileBlocker(projectile.xPosition, projectile.yPosition, projectile.xPosition, projectile.yPosition + 1, out old);
+                        break;
+                    }
+                case Projectile.FlightDirection.DOWN:
+                    {
+                        ITileblocker old;
+                        MoveTileBlocker(projectile.xPosition, projectile.yPosition, projectile.xPosition, projectile.yPosition - 1, out old);
+                        if(projectile != null) 
+                        {
+                            MoveTileBlocker(projectile.xPosition, projectile.yPosition, projectile.xPosition, projectile.yPosition - 1, out old);
+                        }
+                        break;
+                    }
+            }
+        }
     }
 
     public void MovePlayer(Card.Type card)
@@ -186,11 +262,17 @@ public class Gridmanager : MonoBehaviour
         }
     }    
 
+    public void PlayerShoot()
+    {
+        SpawnTileBlocker(SpaceGridTileBlocker.Projectile, playerShip.xPosition, playerShip.yPosition + 1, Projectile.FlightDirection.UP);
+    }
+
 
     public enum SpaceGridTileBlocker
     {
         Asteroid,
         PlayerShip,
+        Projectile,
 
     }
 }

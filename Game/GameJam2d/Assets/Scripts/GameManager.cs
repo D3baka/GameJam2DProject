@@ -36,6 +36,10 @@ public class GameManager : MonoBehaviour
         {
             PlayCard(Card.Type.RIGHT);
         }
+        if (Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            PlayCard(Card.Type.SHOOT);
+        }
 
     }
     public void NextTurn()
@@ -52,7 +56,8 @@ public class GameManager : MonoBehaviour
         }
         if(card == Card.Type.SHOOT)
         {
-
+            gridmanager.PlayerShoot();
+            return;
         }
         
         
