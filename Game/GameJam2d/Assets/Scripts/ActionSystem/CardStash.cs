@@ -12,13 +12,15 @@ public class CardStash : MonoBehaviour, IStash
 
         cards = new List<int>();
     
-        for(int i = 0; i < 4; i++)
+        for(int i = 0; i < 2; i++)
         {
             GetComponent<CardGrid>().AddCard(Card.Type.LEFT);
             GetComponent<CardGrid>().AddCard(Card.Type.RIGHT);
+            GetComponent<CardGrid>().AddCard(Card.Type.FORWARD);
             GetComponent<CardGrid>().AddCard(Card.Type.SHOOT);
         }
-        
+        GetComponent<CardGrid>().AddCard(Card.Type.SHOP);
+
     }
 
     public void addCard(Card.Type card)
