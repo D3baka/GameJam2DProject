@@ -21,7 +21,7 @@ public class CardIconManager : MonoBehaviour
 
     private void Awake()
     {
-        if (UserInput.Instance == null)
+        if (Instance == null)
         {
             Instance = this;
         }
