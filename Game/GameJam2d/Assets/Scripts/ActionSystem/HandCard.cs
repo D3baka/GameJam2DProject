@@ -19,12 +19,6 @@ public class HandCard : MonoBehaviour, IInteractable
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void Clicked()
     {
        hand.playCard(index);
