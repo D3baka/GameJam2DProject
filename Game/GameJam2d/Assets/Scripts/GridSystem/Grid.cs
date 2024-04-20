@@ -32,7 +32,7 @@ public class Grid
 
         //Debug Gizmos
 
-        bool isDebug = true;
+        bool isDebug = false;
         if (isDebug)
         {
             debugTextArray = new TextMesh[width, height];
