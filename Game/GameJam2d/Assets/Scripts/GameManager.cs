@@ -12,8 +12,10 @@ public class GameManager : MonoBehaviour
     private int playerHitpoints;
 
     [SerializeField] private int coinCount;
+    [SerializeField] private GameObject shop;
     private bool isShielded = false;
     private int shieldTimeLeft;
+
 
     public GameState gameState {  get; private set; }  
     
@@ -85,6 +87,11 @@ public class GameManager : MonoBehaviour
             gridmanager.PlayerShoot();
             return;
         }
+        if(card == Card.Type.SHOP)
+        {
+            shop.GetComponent<Shop>().OpenShop();
+            return;
+        }
     }
 
     public void AddCoins(int amount)
@@ -108,6 +115,7 @@ public class GameManager : MonoBehaviour
     {
         return coinCount;
     }
+
 
     public void PlayerHitByAsteroid()
     {

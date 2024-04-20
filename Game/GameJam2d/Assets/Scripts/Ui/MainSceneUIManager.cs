@@ -6,10 +6,13 @@ using UnityEngine;
 public class MainSceneUIManager : MonoBehaviour
 {
     [SerializeField] GameObject gameOverScreen;
+    [Tooltip("Assign the Shop UI")]
+    [SerializeField] GameObject shopScreen;
 
     private void Awake()
     {
         gameOverScreen.SetActive(false);
+        shopScreen.GetComponent<Shop>().CloseShop();
     }
     private void Start()
     {
@@ -24,7 +27,7 @@ public class MainSceneUIManager : MonoBehaviour
         }
         
     }
-
+    
     private void OnDestroy()
     {
     }
