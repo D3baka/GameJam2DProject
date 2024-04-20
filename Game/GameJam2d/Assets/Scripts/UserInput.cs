@@ -56,7 +56,10 @@ public class UserInput : MonoBehaviour
 
     private void Start()
     {
-        GameManager.Instance.OnGameStateChanged += Instance_OnGameStateChanged;
+        if(GameManager.Instance != null)
+        {
+            GameManager.Instance.OnGameStateChanged += Instance_OnGameStateChanged;
+        }        
     }
 
     private void OnDestroy()
