@@ -437,7 +437,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce2f3999d4d1eb348962a9c3c7a8055b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  asteroid2: {fileID: -4637885794167766972, guid: 4761926e1a086c145849937b45a3244b, type: 3}
+  asteroid: {fileID: -4637885794167766972, guid: cd4d44c3a8cdcb046b0c6f819d5f3d8e, type: 3}
+  asteroid2: {fileID: 7093247852956274290, guid: 4761926e1a086c145849937b45a3244b, type: 3}
   wfcBlocker: {fileID: 66203559526991684, guid: c7fb0cd582c7aed47b06d35bb34a5e75, type: 3}
   asteroidPrefab: {fileID: -4637885794167766972, guid: cd4d44c3a8cdcb046b0c6f819d5f3d8e, type: 3}
   playerShipPrefab: {fileID: 3612751945791728011, guid: 7340d05a4ecfefc4ba1d3ddc8db36338, type: 3}

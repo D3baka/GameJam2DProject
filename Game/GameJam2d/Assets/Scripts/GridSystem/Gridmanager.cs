@@ -38,7 +38,7 @@ public class Gridmanager : MonoBehaviour
             Debug.LogError("Too many Gridmanager Instances: " + Gridmanager.Instance);
         }
         Vector3 offset = Camera.main.ScreenToWorldPoint(new Vector3(0,0,10));
-        grid = new Grid(11, 11, 15, offset);
+        grid = new Grid(11, 11, 2, offset);
 
         probability = new int[3];
         probability[0] = 100;

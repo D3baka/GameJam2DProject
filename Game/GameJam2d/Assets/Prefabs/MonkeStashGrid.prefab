@@ -48,8 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a89c39837dc72284c86641cd15a176d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  height: 1
-  width: 4
+  height: 4
+  width: 1
   stacked: 0
   spacing: 1
   stashGO: {fileID: 0}

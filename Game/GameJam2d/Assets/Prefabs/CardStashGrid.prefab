@@ -34,7 +34,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -8.42, y: -1.58}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 100, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2747724105739119805
 MonoBehaviour:
@@ -50,7 +50,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   height: 1
   width: 4
+  stacked: 0
   spacing: 1
+  stashGO: {fileID: 0}
   cardTilePrefab: {fileID: 3995723262774524316, guid: ab2e3d8e8ab9cc94e97b457bef946a3d, type: 3}
   cornerTile: {fileID: 684878236075516102, guid: 6f57c23961d2d8e4ebfd14b10af71236, type: 3}
   edgeTile: {fileID: 9156355726405333936, guid: 60945a3f1a7d16041bc94c35ce3cf4f1, type: 3}
