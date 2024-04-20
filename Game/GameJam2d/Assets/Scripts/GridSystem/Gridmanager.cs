@@ -13,6 +13,7 @@ public class Gridmanager : MonoBehaviour
     [SerializeField] private Asteroid asteroidPrefab;
     [SerializeField] private  PlayerShip playerShipPrefab;
     [SerializeField] private Projectile projectilePrefab;
+    [SerializeField] private Coin coinPrefab;
 
     public static Gridmanager Instance { get; private set; }
 
@@ -40,7 +41,7 @@ public class Gridmanager : MonoBehaviour
         Vector3 offset = Camera.main.ScreenToWorldPoint(new Vector3(0,0,10));
         grid = new Grid(11, 11, 2, offset);
 
-        initializeWFC();
+        InitializeWFC();
    
     }
 
@@ -109,6 +110,10 @@ public class Gridmanager : MonoBehaviour
             case SpaceGridTileBlocker.PlayerShip:
                 tileblocker = SpawnPlayerShip();
                 playerShip = tileblocker as PlayerShip;
+                break;
+            case SpaceGridTileBlocker.Coin:
+                tileblocker = SpawnCoin();
+                tileblocker.SetGridPosition(pos);
                 break;
             default:
                 tileblocker = null;
@@ -188,6 +193,11 @@ public class Gridmanager : MonoBehaviour
         return newAst;
     }
 
+    private ITileblocker SpawnCoin()
+    {
+        Coin newCoin = Instantiate(coinPrefab);
+        return newCoin;
+    }
     private ITileblocker SpawnPlayerShip()
     {
         PlayerShip newPlayerShip = Instantiate(playerShipPrefab);
@@ -226,14 +236,25 @@ public class Gridmanager : MonoBehaviour
     }
 
     private void OnShipCollidedWithTileBlocker(ITileblocker other)
-    {
-        Debug.Log("Ship hit Asteroid time before getComponent: " + Time.timeAsDouble);
+    {        
         if (other.GetGameObject().GetComponent<Asteroid>() != null)
         {
-            Debug.Log("Ship hit Asteroid time: " + Time.timeAsDouble);
+            Debug.Log("Ship hit Asteroid");
             DestroyTileBlocker(other);
             GameManager.Instance.PlayerHitByAsteroid();
-        }        
+        }
+        if (other.GetGameObject().GetComponent<AsteroidCore>() != null)
+        {
+            Debug.Log("Ship hit Asteroid");
+            DestroyTileBlocker(other);
+            GameManager.Instance.PlayerHitByAsteroid();
+        }
+        if (other.GetGameObject().GetComponent<Coin>() != null)
+        {            
+            DestroyTileBlocker(other);
+            GameManager.Instance.AddCoins(1);
+        }
+
     }
 
     
@@ -319,7 +340,7 @@ public class Gridmanager : MonoBehaviour
     {
         Asteroid,
         AsteroidCenter,
-        
+        Coin,
         PlayerShip,
         Projectile,
 
@@ -499,6 +520,9 @@ public class Gridmanager : MonoBehaviour
                 case 2:
                     SpawnTileBlocker(SpaceGridTileBlocker.AsteroidCenter, x, row);
                     break;
+                case 3:
+                    SpawnTileBlocker(SpaceGridTileBlocker.Coin, x, row);
+                    break;
                 default:
                     break;
             }
@@ -658,17 +682,20 @@ public class Gridmanager : MonoBehaviour
 
     }
 
-    private void initializeWFC()
+    private void InitializeWFC()
     {
         // CONFIGURE WORLD GENERATION
         // DONT FORGET ADJUSTING GENERATE NEW LINE
-        probability = new int[3];
+        probability = new int[4];
         probability[0] = 100;
         probability[1] = 30;
         probability[2] = 80;
+        probability[3] = 10;
 
         wfcGridArray = new int[,]
         {
+           {0, 0, 0, 0, 0, 0 },
+           {0, 3, 0, 0, 0, 0 },
            {0, 0, 0, 0, 0, 0 },
            {0, 0, 1, 0, 0, 0 },
            {0, 1, 2, 1, 0, 0 },
@@ -702,6 +729,8 @@ public class Gridmanager : MonoBehaviour
             return 1;
         else if ((neighborBlocker as AsteroidCore) != null)
            return 2;
+        else if((neighborBlocker as Coin) != null)
+            return 3;
 
         return 0;
     }
