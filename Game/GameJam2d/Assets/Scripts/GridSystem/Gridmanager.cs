@@ -6,12 +6,14 @@ using System.Collections.Generic;
 public class Gridmanager : MonoBehaviour
 {
     [SerializeField] private Asteroid asteroid;
+    [SerializeField] private Asteroid asteroid2;
     [SerializeField] private WFCBlocker wfcBlocker;
     public static Gridmanager Instance { get; private set; }
 
     // array that represents tile map:
     private int[,] wfcGridArray;
     private int wfcElementCount;
+    private int[] probability;
 
     private Grid grid;
 
@@ -30,11 +32,18 @@ public class Gridmanager : MonoBehaviour
         Vector3 offset = Camera.main.ScreenToWorldPoint(new Vector3(0,0,10));
         grid = new Grid(11, 11, 15, offset);
 
+        probability = new int[3];
+        probability[0] = 100;
+        probability[1] = 30;
+        probability[2] = 20;
 
         wfcGridArray = new int[,]
         {
-            { 0, 0, 0, 1, 0 },
-            { 0, 0, 0, 0, 0 }
+           {0, 0, 0, 0, 0, 0 },
+           {0, 0, 1, 0, 0, 0 },
+           {0, 1, 2, 1, 0, 0 },
+           {0, 0, 1, 0, 0, 0 },
+           {0, 0, 0, 0, 0, 0 }
         };
 
         // Iterate through wfcGridArray to find the highest element
@@ -147,7 +156,7 @@ public class Gridmanager : MonoBehaviour
             for (int y = 0; y < empytRows; y++)
             {
                 ITileblocker blocker = null;
-                Debug.Log(grid.FreePosition(x, y, out blocker));
+                grid.FreePosition(x, y, out blocker);
                 Destroy(blocker.GetGameObject());
             }
         }
@@ -162,18 +171,15 @@ public class Gridmanager : MonoBehaviour
 
     private void collapseRow(int row)
     {
-        Debug.Log("Collapseing ------------------------------------");
-        Debug.Log("Row " + row);
-        Debug.Log(collapsed(row));
-
        
+        
          while (!collapsed(row))
          {
              WFCBlocker lowestEntropy = getLowestEntropy(row);
 
              lowestEntropy.collapse();
 
-            // updateNeighborsConstraints(lowestEntropy, row);
+             updateNeighborsConstraints(lowestEntropy, row);
          }
 
           // update visuals:
@@ -181,7 +187,7 @@ public class Gridmanager : MonoBehaviour
           for(int x = 0; x < grid.width; x++)
           {
               ITileblocker blocker = null;
-              Debug.Log(grid.FreePosition(x, row, out blocker));
+              grid.FreePosition(x, row, out blocker);
 
               int state = (blocker as WFCBlocker).GetState();
 
@@ -195,6 +201,9 @@ public class Gridmanager : MonoBehaviour
                   case 1:
                       SpawnTileBlocker(SpaceGridTileBlocker.Asteroid, x, row);
                       break;
+                case 2:
+                    SpawnTileBlocker(SpaceGridTileBlocker.AsteroidCenter, x, row);
+                    break;
                   default:
                       break;
               }
@@ -204,8 +213,9 @@ public class Gridmanager : MonoBehaviour
 
     private void updateNeighborsConstraints(WFCBlocker collapsedBlocker, int row)
     {
+        Debug.Log("UPDATE NEIGHBORS");
         int x = collapsedBlocker.xPosition;
-        int y = collapsedBlocker.yPosition;
+        int y = row;
 
         // Neighboring positions to check: left, right, above, below
         List<Vector2Int> neighbors = new List<Vector2Int>
@@ -217,10 +227,14 @@ public class Gridmanager : MonoBehaviour
 
         foreach (var neighbor in neighbors)
         {
+            Debug.Log("ITERATING)");
             if (IsInGrid(neighbor.x, neighbor.y))
             {
-                grid.GetTileBlockerFromPosition(neighbor.x, neighbor.y, out ITileblocker neighborBlocker);
+                Debug.Log("ITERATING IN GRID" + neighbor.x + ", " + neighbor.y);
+                ITileblocker neighborBlocker;
+                grid.GetTileBlockerFromPosition(neighbor.x, neighbor.y, out neighborBlocker );
                 WFCBlocker wfcNeighbor = neighborBlocker as WFCBlocker;
+                Debug.Log(wfcNeighbor == null);
                 if (wfcNeighbor != null)
                 {
                     wfcNeighbor.UpdatePossibleStatesBasedOnNeighbor(collapsedBlocker);
@@ -240,11 +254,10 @@ public class Gridmanager : MonoBehaviour
             // cast to wfcBlocker
             WFCBlocker wfcBlocker = blocker as WFCBlocker;
 
-            Debug.Log(wfcBlocker.GetState() + "Was the State)");
 
             collapsed = collapsed && (wfcBlocker.GetState() != -1);
         }
-        Debug.Log(collapsed);
+        
         return collapsed;
     }
 
@@ -316,18 +329,27 @@ public class Gridmanager : MonoBehaviour
     private void SpawnTileBlocker(SpaceGridTileBlocker toSpawn, int _x, int _y)
     {
         ITileblocker tileblocker;
+
+        Vector2 pos = new Vector2(_x, _y);
         switch (toSpawn)
         {
             case SpaceGridTileBlocker.Asteroid:
                 tileblocker = SpawnAsteroid();
+                tileblocker.SetGridPosition(pos);
                 break;
             case SpaceGridTileBlocker.WFCTileBlocker:
                 WFCBlocker blocker = Instantiate(wfcBlocker);
-                blocker.init(wfcElementCount, wfcConstraints);
+                blocker.init(wfcElementCount, wfcConstraints, probability);
                 tileblocker = blocker;
+                tileblocker.SetGridPosition(pos);
+                break;
+            case SpaceGridTileBlocker.AsteroidCenter:
+                tileblocker = SpawnAsteroidMiddle();
+                tileblocker.SetGridPosition(pos);
                 break;
             default:
                 tileblocker = SpawnAsteroid();
+                tileblocker.SetGridPosition(pos);
                 break;
                 
         }
@@ -361,6 +383,12 @@ public class Gridmanager : MonoBehaviour
         return newAsteroid;
     }
 
+    private ITileblocker SpawnAsteroidMiddle()
+    {
+        Asteroid newAst = Instantiate(asteroid2);
+        return newAst;
+    }
+
     private bool IsInGrid(int x, int y)
     {
         return x >= 0 && y >= 0 && x < grid.width && y < grid.height;
@@ -369,6 +397,7 @@ public class Gridmanager : MonoBehaviour
     public enum SpaceGridTileBlocker
     {
         Asteroid,
+        AsteroidCenter,
         WFCTileBlocker
 
     }

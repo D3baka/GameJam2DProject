@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+
 
 public class WFCBlocker : MonoBehaviour, ITileblocker
 {
@@ -10,10 +12,11 @@ public class WFCBlocker : MonoBehaviour, ITileblocker
 
     private List<int> possibleState;
     private int state = -1;
+    private int[] probabilities;
 
     private Dictionary<int, HashSet<int>[]> wfcConstraints;
     
-    public void init(int combinations, Dictionary<int, HashSet<int>[]> constraints )
+    public void init(int combinations, Dictionary<int, HashSet<int>[]> constraints, int[] probabilityList )
     {
         possibleState = new List<int>();
 
@@ -26,6 +29,8 @@ public class WFCBlocker : MonoBehaviour, ITileblocker
         Debug.Log("init states:" + possibleState.Count);
 
         wfcConstraints = constraints;
+
+        probabilities = probabilityList;
     }
 
     public void SetState(int state)
@@ -40,7 +45,29 @@ public class WFCBlocker : MonoBehaviour, ITileblocker
 
     public int collapse()
     {
-        this.state = possibleState[Random.Range(0, possibleState.Count)];
+        int randomUpperCorner = 0;
+        foreach (int element in possibleState)
+        {
+            randomUpperCorner += probabilities[element];
+        }
+
+        int randomNum = Random.Range(0, randomUpperCorner);
+
+        int curr = 0;
+        int index = -1;
+        foreach(int element in possibleState)
+        {
+            curr += probabilities[element];
+            if (curr >= randomNum)
+            {
+                index = element;
+                break;
+            }
+
+        }
+
+
+        this.state = index;
 
         possibleState.Clear();
         possibleState.Add(state);
@@ -89,6 +116,42 @@ public class WFCBlocker : MonoBehaviour, ITileblocker
 
     public void UpdatePossibleStatesBasedOnNeighbor(WFCBlocker neighbor)
     {
+        Debug.Log("=======================");
+        Debug.Log("collapsing cell" + xPosition);
+        Debug.Log("Neighbor state:" + neighbor.GetState());
+        // Determine the relative direction of the neighbor
+        int directionIndex;
+        if (neighbor.xPosition == this.xPosition - 1 && neighbor.yPosition == this.yPosition)
+            directionIndex = 0; // Left
+        else if (neighbor.xPosition == this.xPosition + 1 && neighbor.yPosition == this.yPosition)
+            directionIndex = 1; // Right
+        else if (neighbor.xPosition == this.xPosition && neighbor.yPosition == this.yPosition - 1)
+            directionIndex = 2; // Up
+        else if (neighbor.xPosition == this.xPosition && neighbor.yPosition == this.yPosition + 1)
+            directionIndex = 3; // Down
+        else
+            return; // Not a direct neighbor
 
+        // Get the neighbor's state and retrieve the corresponding allowed states for the current tile
+        int neighborState = neighbor.GetState();
+        if (wfcConstraints.ContainsKey(neighborState))
+        {
+            HashSet<int> allowedStates = wfcConstraints[neighborState][directionIndex];
+            foreach (int el in allowedStates)
+            {
+                Debug.Log("Element " + el);  
+            }
+
+            // Filter the possible states based on the allowed states
+            possibleState = possibleState.Where(s => allowedStates.Contains(s)).ToList();
+
+
+            if (possibleState.Count == 0)
+            {
+                Debug.LogError("No valid states remain for tile at position (" + xPosition + ", " + yPosition + ")");
+                // Handle error state where no valid states are possible
+            }
+        }
     }
+
 }
