@@ -1,15 +1,13 @@
 using Debaka.Utils;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
-using System.Collections.Generic;
 
 public class Gridmanager : MonoBehaviour
 {
 
     [SerializeField] private Asteroid asteroid;
     [SerializeField] private AsteroidCore asteroid2;
+
     [SerializeField] private WFCBlocker wfcBlocker;
 
     [SerializeField] private Asteroid asteroidPrefab;
@@ -139,7 +137,7 @@ public class Gridmanager : MonoBehaviour
 
         // debug logs:
 
-        Debug.Log("spawned");
+        //Debug.Log("spawned");
 
         for (int x = 0; x < grid.width; x++)
         {
@@ -256,7 +254,7 @@ public class Gridmanager : MonoBehaviour
 
     private void updateNeighborsConstraints(WFCBlocker collapsedBlocker, int row)
     {
-        Debug.Log("UPDATE NEIGHBORS");
+        //Debug.Log("UPDATE NEIGHBORS");
         int x = collapsedBlocker.xPosition;
         int y = row;
 
@@ -270,14 +268,14 @@ public class Gridmanager : MonoBehaviour
 
         foreach (var neighbor in neighbors)
         {
-            Debug.Log("ITERATING)");
+            //Debug.Log("ITERATING)");
             if (IsInGrid(neighbor.x, neighbor.y))
             {
-                Debug.Log("ITERATING IN GRID" + neighbor.x + ", " + neighbor.y);
+                //Debug.Log("ITERATING IN GRID" + neighbor.x + ", " + neighbor.y);
                 ITileblocker neighborBlocker;
                 grid.GetTileBlockerFromPosition(neighbor.x, neighbor.y, out neighborBlocker );
                 WFCBlocker wfcNeighbor = neighborBlocker as WFCBlocker;
-                Debug.Log(wfcNeighbor == null);
+                //Debug.Log(wfcNeighbor == null);
                 if (wfcNeighbor != null)
                 {
                     wfcNeighbor.UpdatePossibleStatesBasedOnNeighbor(collapsedBlocker);
@@ -440,9 +438,8 @@ public class Gridmanager : MonoBehaviour
                         //Do nothing because we do not move the player or projectiles in turns
                         continue;
                     }
-                }
-                ITileblocker oldBlocker;
-                MoveTileBlocker(x, y, x, y-1, out oldBlocker);
+                }         
+                MoveTileBlocker(x, y, x, y-1);
 
             }
         }
@@ -504,11 +501,11 @@ public class Gridmanager : MonoBehaviour
         tileblocker.GetGameObject().transform.position = grid.GetWorldPosition(_x, _y) + new Vector3(grid.cellSize / 2, grid.cellSize / 2, 0);
     }
 
-    private bool MoveTileBlocker(int oldX, int oldY,int newX, int newY, out ITileblocker atPositionBefore)
+    private bool MoveTileBlocker(int oldX, int oldY,int newX, int newY)
     {
         bool result = false;
         ITileblocker tileblocker;
-        atPositionBefore = null;
+        ITileblocker atPositionBefore = null;
 
         // Check if we actually have something to move at the position
         if (grid.FreePosition(oldX, oldY, out tileblocker))
@@ -519,16 +516,18 @@ public class Gridmanager : MonoBehaviour
                 DestroyTileBlocker(tileblocker);
                 return result;
             }
-            result = grid.SetTileblockerAtPosition(newX, newY, tileblocker, out atPositionBefore);
 
-            //if there is a  Tileblocker at the target position      
-            if(result)
+            if(grid.GetTileBlockerFromPosition(newX, newY, out atPositionBefore))
             {
-                OnCollision(tileblocker, atPositionBefore);                
+                OnCollision(tileblocker, atPositionBefore);
+                return result;
 
             }
+            
+            grid.SetTileblockerAtPosition(newX, newY, tileblocker, out atPositionBefore);
             tileblocker.SetGridPosition(new Vector2(newX, newY));
             tileblocker.GetGameObject().transform.position = grid.GetWorldPosition(newX, newY) + new Vector3(grid.cellSize / 2, grid.cellSize / 2, 0);
+            //Debug.Log("Moved tileblocker to " + newX + "," + newY);
         }
         return result;
     }
@@ -599,6 +598,7 @@ public class Gridmanager : MonoBehaviour
         int y = (int)tileblocker.GetGridPosition().y;
         if (IsInGrid(x, y))
         {
+            Debug.Log("Freeing grid position " + x + "," + y);
             ITileblocker old;
             grid.FreePosition(x,y, out old);
         }        
@@ -613,18 +613,16 @@ public class Gridmanager : MonoBehaviour
             switch (projectile.direction)
             {
                 case Projectile.FlightDirection.UP:
-                    {
-                        ITileblocker old;
-                        MoveTileBlocker(projectile.xPosition, projectile.yPosition, projectile.xPosition, projectile.yPosition + 1, out old);
+                    {                        
+                        MoveTileBlocker(projectile.xPosition, projectile.yPosition, projectile.xPosition, projectile.yPosition + 1);
                         break;
                     }
                 case Projectile.FlightDirection.DOWN:
                     {
-                        ITileblocker old;
-                        MoveTileBlocker(projectile.xPosition, projectile.yPosition, projectile.xPosition, projectile.yPosition - 1, out old);
+                        MoveTileBlocker(projectile.xPosition, projectile.yPosition, projectile.xPosition, projectile.yPosition - 1);
                         if(projectile != null) 
                         {
-                            MoveTileBlocker(projectile.xPosition, projectile.yPosition, projectile.xPosition, projectile.yPosition - 1, out old);
+                            MoveTileBlocker(projectile.xPosition, projectile.yPosition, projectile.xPosition, projectile.yPosition - 1);
                         }
                         break;
                     }
@@ -639,26 +637,24 @@ public class Gridmanager : MonoBehaviour
             case Card.Type.LEFT:
                 {
                     Debug.Log("Moving player left from position: " + playerShip.xPosition + " " + playerShip.yPosition);
-                    ITileblocker old;
                     int newX = playerShip.xPosition - 1;
                     if (newX < 0)
                     {
                         newX = grid.width - 1;
                     }
-                    MoveTileBlocker(playerShip.xPosition, playerShip.yPosition, newX, playerShip.yPosition, out old);
+                    MoveTileBlocker(playerShip.xPosition, playerShip.yPosition, newX, playerShip.yPosition);
                     break;
                 }
                 
             case Card.Type.RIGHT:
                 {
                     Debug.Log("Moving player right from position: " + playerShip.xPosition + " " + playerShip.yPosition);
-                    ITileblocker old;
                     int newX = playerShip.xPosition + 1;
                     if (newX >= grid.width)
                     {
                         newX = 0;
                     }
-                    MoveTileBlocker(playerShip.xPosition, playerShip.yPosition, newX, playerShip.yPosition, out old);
+                    MoveTileBlocker(playerShip.xPosition, playerShip.yPosition, newX, playerShip.yPosition);
                     break;
                 }
                 
