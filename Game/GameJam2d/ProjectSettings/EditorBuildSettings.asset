@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Playgrounds/D3baka/MainMenu.unity
     guid: 8f0af51556597ab4c814e59f010b994a
   - enabled: 1
-    path: Assets/Playgrounds/D3baka/MainScene.unity
+    path: Assets/Scenes/LoadingScene.unity
+    guid: 82d93314030988049b6c2f14f91562f8
+  - enabled: 1
+    path: Assets/Playgrounds/D3baka/GameScene.unity
     guid: 215d33964da8f9c49bc899e1c0b15d56
   m_configObjects: {}

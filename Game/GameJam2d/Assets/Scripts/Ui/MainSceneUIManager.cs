@@ -2,10 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainSceneUIManager : MonoBehaviour
-{
+{    
     [SerializeField] GameObject gameOverScreen;
+    [SerializeField] GameObject pauseMenu;
+    
 
     private void Awake()
     {
@@ -13,7 +16,12 @@ public class MainSceneUIManager : MonoBehaviour
     }
     private void Start()
     {
-        GameManager.Instance.OnGameStateChanged += Instance_OnGameStateChanged;
+        GameManager.Instance.OnGameStateChanged += Instance_OnGameStateChanged;        
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.Instance.OnGameStateChanged -= Instance_OnGameStateChanged;
     }
 
     private void Instance_OnGameStateChanged(object sender, GameManager.OnGameStateChangedEventArgs e)
@@ -22,12 +30,18 @@ public class MainSceneUIManager : MonoBehaviour
         {
             gameOverScreen.SetActive(true);
         }
-        
+        else if(e.gameState == GameManager.GameState.Paused)
+        {
+            pauseMenu.SetActive(true);
+        }
+        else if (e.gameState == GameManager.GameState.Running)
+        {
+            pauseMenu.SetActive(false);
+        }
+
     }
 
-    private void OnDestroy()
-    {
-    }
+    
 
    
 }

@@ -39,6 +39,18 @@ public class GameManager : MonoBehaviour
         gameState = GameState.Running;
     }
 
+    private void Start()
+    {
+        UserInput.Instance.OnPauseAction += Instance_OnPauseAction;
+    }
+
+    private void OnDestroy()
+    {
+        UserInput.Instance.OnPauseAction -= Instance_OnPauseAction;
+    }
+
+    
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -59,6 +71,21 @@ public class GameManager : MonoBehaviour
         }
 
     }
+
+    private void Instance_OnPauseAction(object sender, EventArgs e)
+    {
+        if(gameState == GameState.Running)
+        {
+            gameState = GameState.Paused;
+            OnGameStateChanged?.Invoke(this, new OnGameStateChangedEventArgs { gameState = gameState});
+        }
+        else if(gameState == GameState.Paused)
+        {
+            gameState = GameState.Running;
+            OnGameStateChanged?.Invoke(this, new OnGameStateChangedEventArgs { gameState = gameState });
+        }
+    }
+
     public void NextTurn()
     {
         gridmanager.NextTurn();
@@ -127,6 +154,5 @@ public class GameManager : MonoBehaviour
         Running,
         Paused,
         GameOver,
-        MainMenu
     }
 }
