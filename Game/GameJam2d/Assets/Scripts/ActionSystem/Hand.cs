@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +12,10 @@ public class Hand : MonoBehaviour
 
     void Start()
     {
-      
+        for(int i = 0; i < cards.Length; i++)
+        {
+            cards[i].setType(monkes[i].drawCard());
+        }
     }
 
 
@@ -19,6 +23,10 @@ public class Hand : MonoBehaviour
     {
 
         Card.Type type = cards[index].getType();
+
+
+        GameManager.Instance.PlayCard(type);
+        GameManager.Instance.NextTurn();
 
         cards[index].setType(monkes[index].drawCard());
     }
