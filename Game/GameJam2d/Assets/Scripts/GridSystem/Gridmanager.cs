@@ -520,6 +520,12 @@ public class Gridmanager : MonoBehaviour
             if(grid.GetTileBlockerFromPosition(newX, newY, out atPositionBefore))
             {
                 OnCollision(tileblocker, atPositionBefore);
+                if(tileblocker as PlayerShip!= null)
+                {
+                    grid.SetTileblockerAtPosition(newX, newY, tileblocker, out atPositionBefore);
+                    tileblocker.SetGridPosition(new Vector2(newX, newY));
+                    tileblocker.GetGameObject().transform.position = grid.GetWorldPosition(newX, newY) + new Vector3(grid.cellSize / 2, grid.cellSize / 2, 0);
+                }
                 return result;
 
             }
@@ -574,7 +580,7 @@ public class Gridmanager : MonoBehaviour
         }
         if (moving.GetGameObject().GetComponent<PlayerShip>() != null)
         {
-            OnShipCollidedWithTileBlocker(stationary);
+            OnShipCollidedWithTileBlocker(stationary);            
             return;
         }
         DestroyTileBlocker(moving);
@@ -583,10 +589,12 @@ public class Gridmanager : MonoBehaviour
 
     private void OnShipCollidedWithTileBlocker(ITileblocker other)
     {
-        if(other.GetGameObject().GetComponent<Asteroid>() != null)
+        Debug.Log("Ship hit Asteroid time before getComponent: " + Time.timeAsDouble);
+        if (other.GetGameObject().GetComponent<Asteroid>() != null)
         {
-            Debug.Log("Ship hit Asteroid!!!");
+            Debug.Log("Ship hit Asteroid time: " + Time.timeAsDouble);
             DestroyTileBlocker(other);
+            GameManager.Instance.PlayerHitByAsteroid();
         }        
     }
 
@@ -598,7 +606,7 @@ public class Gridmanager : MonoBehaviour
         int y = (int)tileblocker.GetGridPosition().y;
         if (IsInGrid(x, y))
         {
-            Debug.Log("Freeing grid position " + x + "," + y);
+            //Debug.Log("Freeing grid position " + x + "," + y);
             ITileblocker old;
             grid.FreePosition(x,y, out old);
         }        
@@ -636,7 +644,7 @@ public class Gridmanager : MonoBehaviour
         {
             case Card.Type.LEFT:
                 {
-                    Debug.Log("Moving player left from position: " + playerShip.xPosition + " " + playerShip.yPosition);
+                    //Debug.Log("Moving player left from position: " + playerShip.xPosition + " " + playerShip.yPosition);
                     int newX = playerShip.xPosition - 1;
                     if (newX < 0)
                     {
@@ -648,7 +656,7 @@ public class Gridmanager : MonoBehaviour
                 
             case Card.Type.RIGHT:
                 {
-                    Debug.Log("Moving player right from position: " + playerShip.xPosition + " " + playerShip.yPosition);
+                    //Debug.Log("Moving player right from position: " + playerShip.xPosition + " " + playerShip.yPosition);
                     int newX = playerShip.xPosition + 1;
                     if (newX >= grid.width)
                     {
