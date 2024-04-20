@@ -46,7 +46,9 @@ public class CardTile : MonoBehaviour
         {
             return;
         }
-        transform.position = GetMousePos();
+        Vector3 newPos = GetMousePos();
+        newPos.z = oldPos.z;
+        transform.position = newPos;
     }
 
     private void OnMouseDown()
