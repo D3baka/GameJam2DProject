@@ -672,7 +672,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   renderer: {fileID: 491143627}
-  speed: 0.02
+  speed: -0.02
   scale: 0.5
 --- !u!1 &722554472
 GameObject:

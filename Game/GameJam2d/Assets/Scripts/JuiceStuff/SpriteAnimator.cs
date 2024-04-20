@@ -54,7 +54,8 @@ public class SpriteAnimator : MonoBehaviour
 
             if (zustand >= currentAnimation.Length) zustand = 0;
 
-            renderer.sprite = currentAnimation[zustand];
+            if (currentAnimation.Length > 0)
+                renderer.sprite = currentAnimation[zustand];
             zustand = zustand + 1;
 
 
