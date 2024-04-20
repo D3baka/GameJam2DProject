@@ -28,6 +28,11 @@ public class CardStash : MonoBehaviour, IStash
         cards.Add((int)card);
     }
 
+    public void addNewCard(Card.Type card)
+    {
+        GetComponent<CardGrid>().AddCard(card);
+    }
+
     public void removeCard(Card.Type card)
     {
         cards.Remove((int)card);

@@ -6,11 +6,9 @@ using UnityEngine.AI;
 public class Monke : MonoBehaviour, IInteractable, IStash
 {
     private List<int> cards = new List<int>(4);
+
+    [SerializeField] int evilProb = 5;
     
-    
-    void Start()
-    {
-    }
 
     public void addCard(Card.Type card)
     {
@@ -25,11 +23,23 @@ public class Monke : MonoBehaviour, IInteractable, IStash
 
     public Card.Type drawCard()
     {
-
         if (cards.Count != 3)
         {
             return Card.Type.BLANK;
         }
+
+
+        // The monke has a chance to randomly give back an evil card.
+        int evilRand = Random.Range(0, evilProb);
+        if (evilRand == 2)
+        {
+            Card.Type[] evilTypes = new Card.Type[2];
+            evilTypes[0] = Card.Type.DO_RANDOM_MOVE;
+            evilTypes[1] = Card.Type.SPAWN_ASTEROID;
+            int i = Random.Range(0, 2);
+            return evilTypes[i];
+        }
+
 
         // random card
         int index = Random.Range(0, cards.Count);
