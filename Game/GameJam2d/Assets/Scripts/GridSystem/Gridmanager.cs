@@ -44,7 +44,7 @@ public class Gridmanager : MonoBehaviour
 
         probability = new int[3];
         probability[0] = 100;
-        probability[1] = 10;
+        probability[1] = 30;
         probability[2] = 80;
 
         wfcGridArray = new int[,]
