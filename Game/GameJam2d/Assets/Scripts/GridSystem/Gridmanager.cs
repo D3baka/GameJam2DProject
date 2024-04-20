@@ -26,6 +26,7 @@ public class Gridmanager : MonoBehaviour
     private PlayerShip playerShip;
     private List<Projectile> projectiles = new();
 
+
     private Dictionary<int, HashSet<int>[]> wfcConstraints;
 
     private void Awake()
@@ -38,7 +39,18 @@ public class Gridmanager : MonoBehaviour
         {
             Debug.LogError("Too many Gridmanager Instances: " + Gridmanager.Instance);
         }
-        Vector3 offset = Camera.main.ScreenToWorldPoint(new Vector3(0,0,10));
+
+        //int xOffset = Screen.width;
+        //xOffset /= 2;
+        //  xOffset -=  11 * 16;
+        //xOffset -=(int)( 5.5f  * 16);
+
+   
+
+
+
+        Vector3 offset = new Vector3(-(11.0f / 2 * 2.0f), -11.0f + 6.45f -2.0f , 0);
+       
         grid = new Grid(11, 11, 2, offset);
 
         InitializeWFC();

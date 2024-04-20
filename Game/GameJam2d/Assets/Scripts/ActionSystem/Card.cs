@@ -6,6 +6,13 @@ public static class Card
         BLANK,
         LEFT,
         RIGHT,
-        SHOOT
+        SHOOT,
+        FORWARD,
+        SHIELD,
+        SHOP,
+        SHUFFLE,
+        CONIFGURE_MONKE,
+        SPAWN_ASTEROID,
+        DO_RANDOM_MOVE
     }
 }
