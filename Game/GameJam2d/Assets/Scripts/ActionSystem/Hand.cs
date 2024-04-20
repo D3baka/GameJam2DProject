@@ -17,7 +17,6 @@ public class Hand : MonoBehaviour
 
     public void playCard(int index)
     {
-        Debug.Log(index);
 
         Card.Type type = cards[index].getType();
 
