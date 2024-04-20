@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class Gridmanager : MonoBehaviour
 {
-    [SerializeField] private Asteroid asteroid;
-    [SerializeField] private  PlayerShip playerShip;
+    [SerializeField] private Asteroid asteroidPrefab;
+    [SerializeField] private  PlayerShip playerShipPrefab;
     public static Gridmanager Instance { get; private set; }
 
     private Grid grid;
+    private PlayerShip playerShip;
 
     private void Awake()
     {
@@ -69,6 +70,7 @@ public class Gridmanager : MonoBehaviour
                 break;
             case SpaceGridTileBlocker.PlayerShip:
                 tileblocker = SpawnPlayerShip();
+                playerShip = tileblocker as PlayerShip;
                 break;
             default:
                 tileblocker = SpawnAsteroid();
@@ -77,6 +79,7 @@ public class Gridmanager : MonoBehaviour
         }
         ITileblocker old;
         grid.SetTileblockerAtPosition(_x, _y, tileblocker, out old);
+        tileblocker.SetGridPosition(new Vector2(_x, _y));
         tileblocker.GetGameObject().transform.position = grid.GetWorldPosition(_x, _y) + new Vector3(grid.cellSize / 2, grid.cellSize / 2, 0);
     }
 
@@ -119,13 +122,13 @@ public class Gridmanager : MonoBehaviour
 
     private ITileblocker SpawnAsteroid()
     {
-        Asteroid newAsteroid = Instantiate(asteroid);
+        Asteroid newAsteroid = Instantiate(asteroidPrefab);
         return newAsteroid;
     }
 
     private ITileblocker SpawnPlayerShip()
     {
-        PlayerShip newPlayerShip = Instantiate(playerShip);
+        PlayerShip newPlayerShip = Instantiate(playerShipPrefab);
         return newPlayerShip;
     }
 
@@ -147,6 +150,42 @@ public class Gridmanager : MonoBehaviour
     {
         Destroy(tileblocker.GetGameObject());
     }
+
+    public void MovePlayer(Card.Type card)
+    {
+        switch (card)
+        {
+            case Card.Type.LEFT:
+                {
+                    Debug.Log("Moving player left from position: " + playerShip.xPosition + " " + playerShip.yPosition);
+                    ITileblocker old;
+                    int newX = playerShip.xPosition - 1;
+                    if (newX < 0)
+                    {
+                        newX = grid.width - 1;
+                    }
+                    MoveTileBlocker(playerShip.xPosition, playerShip.yPosition, newX, playerShip.yPosition, out old);
+                    break;
+                }
+                
+            case Card.Type.RIGHT:
+                {
+                    Debug.Log("Moving player right from position: " + playerShip.xPosition + " " + playerShip.yPosition);
+                    ITileblocker old;
+                    int newX = playerShip.xPosition + 1;
+                    if (newX >= grid.width)
+                    {
+                        newX = 0;
+                    }
+                    MoveTileBlocker(playerShip.xPosition, playerShip.yPosition, newX, playerShip.yPosition, out old);
+                    break;
+                }
+                
+            case Card.Type.SHOOT:
+                break;
+        }
+    }    
+
 
     public enum SpaceGridTileBlocker
     {
