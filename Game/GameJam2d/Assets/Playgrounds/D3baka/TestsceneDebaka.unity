@@ -212,7 +212,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce2f3999d4d1eb348962a9c3c7a8055b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  asteroid: {fileID: 7383736909361889670, guid: cd4d44c3a8cdcb046b0c6f819d5f3d8e, type: 3}
+  asteroid: {fileID: -4637885794167766972, guid: cd4d44c3a8cdcb046b0c6f819d5f3d8e, type: 3}
+  wfcBlocker: {fileID: 66203559526991684, guid: c7fb0cd582c7aed47b06d35bb34a5e75, type: 3}
 --- !u!1 &1096528908
 GameObject:
   m_ObjectHideFlags: 0
