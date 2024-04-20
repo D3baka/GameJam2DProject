@@ -71,6 +71,7 @@ public class CardTile : MonoBehaviour
                 if (hit.collider.gameObject.GetComponent<CardTile>().setTile(type))
                 {
                     amount--;
+                    Debug.Log("Es wurde eins abgezogen jetztz simmer noch: " + amount);
                     if(amount <= 0)
                     {
                         setTile(Card.Type.BLANK);
@@ -99,17 +100,41 @@ public class CardTile : MonoBehaviour
                 {
                     return false;
                 }
+                else
+                {
+                    amount = 0;
+                }
+            }
+            else
+            {
+                amount = 1;
             }
         }
         else
         {
-            t = type;
-            incrementAmount();
+            if(type != Card.Type.BLANK)
+            {
+                if(t == Card.Type.BLANK)
+                {
+                    amount = 0;
+                }
+                else if (type != t)
+                {
+                    return false;
+                }
+                else
+                {
+                    amount++;
+                }
+            }
+            else
+            {
+                amount++;
+            }
         }
 
         stash.changeCard(type, t);
         
-        incrementAmount();
         this.type = t;
         updateIcon();
         return true;
