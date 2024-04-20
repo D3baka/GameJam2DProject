@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 376663178}
   - component: {fileID: 376663177}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -213,6 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   asteroid: {fileID: 7383736909361889670, guid: cd4d44c3a8cdcb046b0c6f819d5f3d8e, type: 3}
+  playerShip: {fileID: 3612751945791728011, guid: 7340d05a4ecfefc4ba1d3ddc8db36338, type: 3}
 --- !u!1 &1096528908
 GameObject:
   m_ObjectHideFlags: 0
