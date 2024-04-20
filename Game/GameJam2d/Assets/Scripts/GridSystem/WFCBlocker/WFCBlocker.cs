@@ -23,10 +23,10 @@ public class WFCBlocker : MonoBehaviour, ITileblocker
         for (int i = 0; i < combinations; i++)
         {
             possibleState.Add(i);
-            Debug.Log("State:" + i);
+            //Debug.Log("State:" + i);
         }
 
-        Debug.Log("init states:" + possibleState.Count);
+        //Debug.Log("init states:" + possibleState.Count);
 
         wfcConstraints = constraints;
 
@@ -72,7 +72,7 @@ public class WFCBlocker : MonoBehaviour, ITileblocker
         possibleState.Clear();
         possibleState.Add(state);
 
-        Debug.Log("State:" + state);
+        //Debug.Log("State:" + state);
         
         return state;
     }
@@ -111,14 +111,14 @@ public class WFCBlocker : MonoBehaviour, ITileblocker
 
     public void print()
     {
-        Debug.Log(possibleState);
+        //Debug.Log(possibleState);
     }
 
     public void UpdatePossibleStatesBasedOnNeighbor(WFCBlocker neighbor)
     {
-        Debug.Log("=======================");
-        Debug.Log("collapsing cell" + xPosition);
-        Debug.Log("Neighbor state:" + neighbor.GetState());
+        //Debug.Log("=======================");
+        //Debug.Log("collapsing cell" + xPosition);
+        //Debug.Log("Neighbor state:" + neighbor.GetState());
         // Determine the relative direction of the neighbor
         int directionIndex;
         if (neighbor.xPosition == this.xPosition - 1 && neighbor.yPosition == this.yPosition)
@@ -139,7 +139,7 @@ public class WFCBlocker : MonoBehaviour, ITileblocker
             HashSet<int> allowedStates = wfcConstraints[neighborState][directionIndex];
             foreach (int el in allowedStates)
             {
-                Debug.Log("Element " + el);  
+                //Debug.Log("Element " + el);  
             }
 
             // Filter the possible states based on the allowed states
