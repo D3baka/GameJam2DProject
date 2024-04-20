@@ -5,9 +5,9 @@ using Debaka.Utils;
 
 public class Grid
 {
-    private int width;
-    private int height;
-    private float cellSize;
+    public readonly int width;
+    public readonly int height;
+    public readonly float cellSize;
     private Tile[,] tiles;
     Vector3 originPosition;
 
@@ -55,26 +55,49 @@ public class Grid
 
     public bool GetTileBlockerFromPosition(int _x, int _y, out ITileblocker tileblocker)
     {
+        if (!(_x >= 0 && _y >= 0 && _x < width && _y < height))
+        {
+            Debug.LogError("POSITION IS NOT INSIDE GRID!");
+            tileblocker = null;
+            return false;
+        }
         return tiles[_x, _y].GetTileBlocker(out tileblocker);
     }
 
     public bool IsPositionBlocked(int _x, int _y)
     {
+        if (!(_x >= 0 && _y >= 0 && _x < width && _y < height))
+        {
+            Debug.LogError("POSITION IS NOT INSIDE GRID!");
+            return false;
+        }
         return tiles[_x, _y].IsBlocked;
     }
 
     public bool SetTileblockerAtPosition(int _x, int _y, ITileblocker newTileblocker, out ITileblocker _tileblocker)
-    {        
+    {  
+        if(!(_x >= 0 && _y >= 0 && _x < width && _y < height))
+        {
+            Debug.LogError("POSITION IS NOT INSIDE GRID!");
+            _tileblocker = null;
+            return false;
+        }
         return tiles[_x, _y].Set(out _tileblocker, newTileblocker);
     }
 
     public bool FreePosition(int _x, int _y, out ITileblocker tileblocker)
     {
+        if (!(_x >= 0 && _y >= 0 && _x < width && _y < height))
+        {
+            Debug.LogError("POSITION IS NOT INSIDE GRID!");
+            tileblocker = null;
+            return false;
+        }
         return tiles[_x, _y].Clear(out tileblocker);
     }
 
     public Vector3 GetWorldPosition(int x, int y)
-    {
+    {        
         return new Vector3(x, y) * cellSize + originPosition;
     }
 
