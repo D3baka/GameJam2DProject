@@ -42,6 +42,10 @@ public class CardTile : MonoBehaviour
 
     public void OnMouseDrag()
     {
+        if(type == Card.Type.BLANK)
+        {
+            return;
+        }
         transform.position = GetMousePos();
     }
 

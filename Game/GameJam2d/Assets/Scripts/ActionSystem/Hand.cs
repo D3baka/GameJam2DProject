@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Hand : MonoBehaviour
@@ -23,6 +24,12 @@ public class Hand : MonoBehaviour
     {
 
         Card.Type type = cards[index].getType();
+
+        if(type == Card.Type.BLANK )
+        {
+            cards[index].setType(monkes[index].drawCard());
+            return;
+        }
 
 
         GameManager.Instance.PlayCard(type);

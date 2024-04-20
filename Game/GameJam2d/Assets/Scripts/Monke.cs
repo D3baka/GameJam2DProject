@@ -25,12 +25,10 @@ public class Monke : MonoBehaviour, IInteractable, IStash
 
     public Card.Type drawCard()
     {
-        Debug.Log("AMout of cards in monke" + cards.Count);
 
-        Debug.Log("So sieht die lkiste aus:");
-        for (int i = 0; i < cards.Count; i++)
+        if (cards.Count != 4)
         {
-            Debug.Log(cards[i]);
+            return Card.Type.BLANK;
         }
 
         // random card
