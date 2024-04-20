@@ -37,7 +37,6 @@ public class SpriteAnimator : MonoBehaviour
         if (locked) return;
         if (Timer <= Time.time)
         {
-            Debug.Log("switching");
 
             // Switch between idle and extra animation
             if (playExtraAnimation)
