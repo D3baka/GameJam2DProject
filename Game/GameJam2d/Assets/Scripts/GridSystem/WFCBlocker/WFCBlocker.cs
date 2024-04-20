@@ -114,6 +114,41 @@ public class WFCBlocker : MonoBehaviour, ITileblocker
         //Debug.Log(possibleState);
     }
 
+    public void UpdatePossibleStatesBasedOnNeighbor(int state, int x, int y)
+    {
+        int directionIndex;
+        if (x == this.xPosition - 1 && y == this.yPosition)
+            directionIndex = 0; // Left
+        else if (x == this.xPosition + 1 &&y == this.yPosition)
+            directionIndex = 1; // Right
+        else if (x == this.xPosition && y == this.yPosition - 1)
+            directionIndex = 2; // Up
+        else if (x == this.xPosition && y == this.yPosition + 1)
+            directionIndex = 3; // Down
+        else
+            return; // Not a direct neighbor
+
+        
+        if (wfcConstraints.ContainsKey(state))
+        {
+            HashSet<int> allowedStates = wfcConstraints[state][directionIndex];
+            foreach (int el in allowedStates)
+            {
+                Debug.Log("Element " + el);
+            }
+
+            // Filter the possible states based on the allowed states
+            possibleState = possibleState.Where(s => allowedStates.Contains(s)).ToList();
+
+
+            if (possibleState.Count == 0)
+            {
+                Debug.LogError("No valid states remain for tile at position (" + xPosition + ", " + yPosition + ")");
+                // Handle error state where no valid states are possible
+            }
+        }
+    }
+
     public void UpdatePossibleStatesBasedOnNeighbor(WFCBlocker neighbor)
     {
         //Debug.Log("=======================");
