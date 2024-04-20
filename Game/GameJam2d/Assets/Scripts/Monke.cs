@@ -37,5 +37,6 @@ public class Monke : MonoBehaviour, IInteractable
     public void Clicked()
     {
         //popup
+
     }
 }
