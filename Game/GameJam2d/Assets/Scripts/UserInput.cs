@@ -10,6 +10,7 @@ using static UserInputActions;
 /// </summary>
 public class UserInput : MonoBehaviour
 {
+    private bool inputsRegistered = true;
     public static UserInput Instance { get; private set; }
 
     // list of all Bindings - if you add a new one to <c>UserInput</c> you need to add it here
@@ -53,11 +54,31 @@ public class UserInput : MonoBehaviour
         buttonLabelMappings.Add("Escape", "esc");
     }
 
-    
-
-    private void OnDestroy() {
-        userInputActions.PlayerInput.Disable();
+    private void Start()
+    {
+        GameManager.Instance.OnGameStateChanged += Instance_OnGameStateChanged;
     }
+
+    private void OnDestroy()
+    {
+        userInputActions.PlayerInput.Disable();
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.OnGameStateChanged -= Instance_OnGameStateChanged;
+        }
+    }
+
+    private void Instance_OnGameStateChanged(object sender, GameManager.OnGameStateChangedEventArgs e)
+    {
+        if(e.gameState == GameManager.GameState.Running)
+        {
+            inputsRegistered = true;
+        }
+        else
+        {
+            inputsRegistered = false;
+        }
+    }  
 
     
     private void OnPausePressed(InputAction.CallbackContext obj) {
@@ -65,11 +86,13 @@ public class UserInput : MonoBehaviour
     }
 
     private void OnInteractPressed(InputAction.CallbackContext obj) {
-        OnInteractAction?.Invoke(this, EventArgs.Empty);
+        if (inputsRegistered)
+        {
+            OnInteractAction?.Invoke(this, EventArgs.Empty);
+        }        
     }
 
-    public Vector2 GetMovevementVectorNormalized() {
-        
+    public Vector2 GetMovevementVectorNormalized() {        
         Vector2 direction = userInputActions.PlayerInput.WASD.ReadValue<Vector2>();        
         return direction.normalized;
     }
