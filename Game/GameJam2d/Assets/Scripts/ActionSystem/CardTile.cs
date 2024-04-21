@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -10,7 +12,10 @@ public class CardTile : MonoBehaviour
 
     [SerializeField] public Card.Type type = Card.Type.BLANK;
     [SerializeField] public bool stackable = false;
+    [SerializeField] public bool moveable = true;
 
+
+    [SerializeField] private float dragScale = 1.5f;
 
     private int amount = 0;
 
@@ -42,51 +47,67 @@ public class CardTile : MonoBehaviour
 
     public void OnMouseDrag()
     {
-        if(type == Card.Type.BLANK)
-        {
-            return;
+      
+        if(GameManager.Instance.gameState == GameManager.GameState.Running){
+            if (type == Card.Type.BLANK || !moveable)
+            {
+                return;
+            }
+              Vector3 newPos = GetMousePos();
+              newPos.z = oldPos.z;
+              transform.position = newPos;
         }
-        Vector3 newPos = GetMousePos();
-        newPos.z = oldPos.z;
-        transform.position = newPos;
+       
     }
 
     private void OnMouseDown()
     {
-        oldPos = transform.position;
+        if(GameManager.Instance.gameState == GameManager.GameState.Running && moveable){
+          transform.localScale = new Vector3(dragScale, dragScale, dragScale);
+          oldPos = transform.position;
+        }
     }
 
     public void OnMouseUp()
     {
-        int LayerIgnoreRaycast = LayerMask.NameToLayer("Ignore Raycast");
-        gameObject.layer = LayerIgnoreRaycast;
-        // get coordinates of the mouse click
-        Vector3 mousePos = GetMousePos();
-        Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
-
-        RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
-
-        int LayerDefault = LayerMask.NameToLayer("Default");
-        gameObject.layer = LayerDefault;
-
-        if (hit.collider != null)
+        if(GameManager.Instance.gameState != GameManager.GameState.Running) return;
+        if(moveable)
         {
-            // check if the object clicked implements the interface Interactable
-            if (hit.collider.gameObject.GetComponent<CardTile>() != null)
+            transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            int LayerIgnoreRaycast = LayerMask.NameToLayer("Ignore Raycast");
+            gameObject.layer = LayerIgnoreRaycast;
+            // get coordinates of the mouse click
+            Vector3 mousePos = GetMousePos();
+            Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
+
+            RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
+
+            int LayerDefault = LayerMask.NameToLayer("Default");
+            gameObject.layer = LayerDefault;
+
+            if (hit.collider != null)
             {
-                if (hit.collider.gameObject.GetComponent<CardTile>().setTile(type))
+                // check if the object clicked implements the interface Interactable
+                if (hit.collider.gameObject.GetComponent<CardTile>() != null)
                 {
-                    amount--;
-                    Debug.Log("Es wurde eins abgezogen jetztz simmer noch: " + amount);
-                    if(amount <= 0)
+                    if (hit.collider.gameObject.GetComponent<CardTile>().setTile(type))
                     {
-                        setTile(Card.Type.BLANK);
+                        amount--;
+                        Debug.Log("Es wurde eins abgezogen jetztz simmer noch: " + amount);
+                        if (amount <= 0)
+                        {
+                            setTile(Card.Type.BLANK);
+                        }
                     }
                 }
             }
+            transform.position = oldPos;
+        }
+        else
+        {
+            stash.cardClicked(type);
         }
 
-        transform.position = oldPos;
     }
 
     private Vector3 GetMousePos()
@@ -98,6 +119,11 @@ public class CardTile : MonoBehaviour
 
     public bool setTile(Card.Type t)
     {
+        if (!stash.acceptCard(t))
+        {
+            return false;
+        }
+
         if(!stackable)
         {
             if(type != Card.Type.BLANK)
@@ -172,4 +198,8 @@ public class CardTile : MonoBehaviour
         amount++;
     }
 
+    internal void setMoveable(bool moveable)
+    {
+        this.moveable = moveable;
+    }
 }
