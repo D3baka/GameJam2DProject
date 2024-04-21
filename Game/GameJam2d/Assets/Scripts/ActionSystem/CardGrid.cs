@@ -9,6 +9,7 @@ public class CardGrid : MonoBehaviour
     [SerializeField] int width;
 
     [SerializeField] bool stacked;
+    [SerializeField] bool moveable = true;
 
     [SerializeField] float spacing = 1.25f;
 
@@ -102,7 +103,8 @@ public class CardGrid : MonoBehaviour
         grid[y, x].GetComponent<CardTile>().setGrid(this);
         grid[y, x].GetComponent<CardTile>().setStash(stash);
         grid[y, x].GetComponent<CardTile>().setStackable(stacked);
-        
+        grid[y, x].GetComponent<CardTile>().setMoveable(moveable);
+
     }
 
     public void AddCard(Card.Type type)
