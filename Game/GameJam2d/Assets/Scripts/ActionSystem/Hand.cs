@@ -38,4 +38,8 @@ public class Hand : MonoBehaviour
         cards[index].setType(monkes[index].drawCard());
     }
 
+    internal void monkeReady(int monkeIndex)
+    {
+        cards[monkeIndex].setType(monkes[monkeIndex].drawCard());
+    }
 }
