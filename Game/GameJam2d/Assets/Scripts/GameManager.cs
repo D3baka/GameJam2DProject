@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Gridmanager gridmanager;
     [SerializeField] private GameObject monkeConfig;
+    [SerializeField] private GameObject shop;
         
     [SerializeField] private int playerMaxHitpoints;
     [SerializeField] private UiManager mainSceneUIManager;
@@ -132,6 +133,11 @@ public class GameManager : MonoBehaviour
         if (card == Card.Type.SHIELD)
         {
             GainShield();
+            return;
+        }
+        if(card == Card.Type.SHOP)
+        {
+            shop.SetActive(true);
             return;
         }
     }
