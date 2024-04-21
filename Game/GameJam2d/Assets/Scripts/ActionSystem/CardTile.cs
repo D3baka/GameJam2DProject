@@ -49,23 +49,20 @@ public class CardTile : MonoBehaviour
     {
       
         if(GameManager.Instance.gameState == GameManager.GameState.Running){
-          if(type == Card.Type.BLANK || !moveable)
-          {
-            if (type == Card.Type.BLANK)
+            if (type == Card.Type.BLANK || !moveable)
             {
                 return;
             }
               Vector3 newPos = GetMousePos();
               newPos.z = oldPos.z;
               transform.position = newPos;
-          }
         }
        
     }
 
     private void OnMouseDown()
     {
-        if(GameManager.Instance.gameState == GameManager.GameState.Running){
+        if(GameManager.Instance.gameState == GameManager.GameState.Running && moveable){
           transform.localScale = new Vector3(dragScale, dragScale, dragScale);
           oldPos = transform.position;
         }
