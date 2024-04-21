@@ -7,7 +7,7 @@ public class SpriteAnimator : MonoBehaviour
     
     [SerializeField] private Sprite[] idleSprites;
 
-    [SerializeField] private SpriteRenderer renderer;
+    [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private float delaySeconds;
     [SerializeField] private float delaySecondsMin;
     [SerializeField] private float delaySecondsMax;
@@ -15,6 +15,7 @@ public class SpriteAnimator : MonoBehaviour
 
 
     [SerializeField] private Sprite[] extraAnimation;
+    [SerializeField] private Sprite[] extraAnimation2;
 
 
     private bool locked = false;
@@ -22,6 +23,7 @@ public class SpriteAnimator : MonoBehaviour
     private int zustand = 0;
 
     private bool playExtraAnimation = false;
+    private bool playExtraAnimation2 = false;
     private Sprite[] currentAnimation;
 
     void Start()
@@ -29,7 +31,7 @@ public class SpriteAnimator : MonoBehaviour
         Timer = 0;
         reDelay();
 
-        renderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
     }
 
@@ -43,6 +45,8 @@ public class SpriteAnimator : MonoBehaviour
             // Switch between idle and extra animation
             if (playExtraAnimation)
                 currentAnimation = extraAnimation;
+            else if (playExtraAnimation2)
+                currentAnimation = extraAnimation2;
             else
                 currentAnimation = idleSprites;
 
@@ -55,20 +59,18 @@ public class SpriteAnimator : MonoBehaviour
             if (zustand >= currentAnimation.Length) zustand = 0;
 
             if (currentAnimation.Length > 0)
-                renderer.sprite = currentAnimation[zustand];
+                spriteRenderer.sprite = currentAnimation[zustand];
             zustand = zustand + 1;
 
-
-           
         }
 
         if (UserInput.Instance.GetMovevementVectorNormalized() != Vector2.zero)
         {
-            playExtraAnimation = true;
+            playExtraAnimation2 = true;
         }
         else
         {
-            playExtraAnimation = false;
+            playExtraAnimation2 = false;
         }
 
     }
@@ -84,13 +86,23 @@ public class SpriteAnimator : MonoBehaviour
         locked = true;
     }
 
-    public void playAction()
+    public void playAnimation()
     {
         playExtraAnimation = true;
     }
 
-    public void stopAction()
+    public void playAnimation2()
+    {
+        playExtraAnimation2 = true;
+    }
+
+    public void stopAnimation()
     {
         playExtraAnimation = false;
+    }
+
+    public void stopAnimation2()
+    {
+        playExtraAnimation2 = false;
     }
 }

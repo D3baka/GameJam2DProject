@@ -264,6 +264,69 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: monke_8
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38dba97264a4b4d43be96c016245d40f
+      internalID: -1553336736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monke_9
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 273dfcfcc272e6b41b9e297ea5a85074
+      internalID: -666725559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monke_10
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 784c8fa1a49e87240828faa7b220581d
+      internalID: -1540613998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -277,12 +340,15 @@ TextureImporter:
     nameFileIdTable:
       monke_0: -1439180909
       monke_1: 1893421540
+      monke_10: -1540613998
       monke_2: 958845169
       monke_3: -1672464895
       monke_4: 2060579200
       monke_5: -863831593
       monke_6: 776566893
       monke_7: -1991519487
+      monke_8: -1553336736
+      monke_9: -666725559
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
