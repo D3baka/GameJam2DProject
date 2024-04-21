@@ -134,7 +134,7 @@ public class WFCBlocker : MonoBehaviour, ITileblocker
             HashSet<int> allowedStates = wfcConstraints[state][directionIndex];
             foreach (int el in allowedStates)
             {
-                Debug.Log("Element " + el);
+                //Debug.Log("Element " + el);
             }
 
             // Filter the possible states based on the allowed states
