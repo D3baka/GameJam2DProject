@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     [SerializeField] private Gridmanager gridmanager;
+    [SerializeField] private GameObject monkeConfig;
         
     [SerializeField] private int playerMaxHitpoints;
     [SerializeField] private UiManager mainSceneUIManager;
@@ -117,6 +118,11 @@ public class GameManager : MonoBehaviour
         if(card == Card.Type.SHOOT)
         {
             gridmanager.PlayerShoot();
+            return;
+        }
+        if(card == Card.Type.CONIFGURE_MONKE)
+        {
+            monkeConfig.SetActive(true);
             return;
         }
     }

@@ -20,6 +20,8 @@ public class CardStash : MonoBehaviour, IStash
             GetComponent<CardGrid>().AddCard(Card.Type.SHOOT);
         }
         GetComponent<CardGrid>().AddCard(Card.Type.SHOP);
+        GetComponent<CardGrid>().AddCard(Card.Type.CONIFGURE_MONKE);
+
 
     }
 
