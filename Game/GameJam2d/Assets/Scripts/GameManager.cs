@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Gridmanager gridmanager;
         
     [SerializeField] private int playerMaxHitpoints;
-    [SerializeField] private MainSceneUIManager mainSceneUIManager;
+    [SerializeField] private UiManager mainSceneUIManager;
     private int playerHitpoints;
 
     [SerializeField] private int coinCount;
@@ -39,6 +39,18 @@ public class GameManager : MonoBehaviour
         gameState = GameState.Running;
     }
 
+    private void Start()
+    {
+        UserInput.Instance.OnPauseAction += Instance_OnPauseAction;
+    }
+
+    private void OnDestroy()
+    {
+        UserInput.Instance.OnPauseAction -= Instance_OnPauseAction;
+    }
+
+    
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -58,6 +70,28 @@ public class GameManager : MonoBehaviour
             PlayCard(Card.Type.SHOOT);
         }
 
+    }
+
+    private void Instance_OnPauseAction(object sender, EventArgs e)
+    {
+        if(gameState == GameState.Running)
+        {
+            gameState = GameState.Paused;
+            OnGameStateChanged?.Invoke(this, new OnGameStateChangedEventArgs { gameState = gameState});
+        }
+        else if(gameState == GameState.Paused)
+        {
+            gameState = GameState.Running;
+            OnGameStateChanged?.Invoke(this, new OnGameStateChangedEventArgs { gameState = gameState });
+        }
+    }
+
+    public void ChangeGameState(GameState _gameState)
+    {
+        if (gameState == _gameState)
+            return;
+        gameState = _gameState;
+        OnGameStateChanged?.Invoke(this, new OnGameStateChangedEventArgs { gameState = gameState });
     }
     public void NextTurn()
     {
@@ -149,6 +183,5 @@ public class GameManager : MonoBehaviour
         Running,
         Paused,
         GameOver,
-        MainMenu
     }
 }
