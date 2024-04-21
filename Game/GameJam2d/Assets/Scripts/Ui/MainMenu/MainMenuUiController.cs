@@ -13,12 +13,14 @@ public class MainMenuUiController : MonoBehaviour
     [SerializeField] private Button controlsButton;
     [SerializeField] private Button settingsButton;
     [SerializeField] private Button creditsButton;
+    [SerializeField] private Button tutorialButton;
     [SerializeField] private Button quitButton;
 
     [SerializeField] private GameObject mainMenuUI;
     [SerializeField] private GameObject controlsUI;
     [SerializeField] private GameObject settingsUI;
     [SerializeField] private GameObject creditsUI;
+    [SerializeField] private GameObject tutorialUI;
 
     List<GameObject> uiList;
     private void Awake() {
@@ -26,6 +28,7 @@ public class MainMenuUiController : MonoBehaviour
         controlsButton.onClick.AddListener(ControlsButtonOnClick);
         settingsButton.onClick.AddListener(SettingsButtonOnClick);
         creditsButton.onClick.AddListener(CreditsButtonOnClick);
+        tutorialButton.onClick.AddListener(TutorialButtonOnClick);
         quitButton.onClick.AddListener(QuitButtonOnClick);
         
         uiList = new List<GameObject>();
@@ -33,6 +36,7 @@ public class MainMenuUiController : MonoBehaviour
         uiList.Add(controlsUI);
         uiList.Add(settingsUI);
         uiList.Add(creditsUI);
+        uiList.Add(tutorialUI);
     }
 
     private void ControlsButtonOnClick() {
@@ -46,6 +50,12 @@ public class MainMenuUiController : MonoBehaviour
     }
     private void CreditsButtonOnClick() {
         EnterSubMenu(creditsUI);
+        AudioFXPlayer.Instance.PlaySound(AudioFXPlayer.SoundEffect.buttonClick);
+    }
+
+    private void TutorialButtonOnClick()
+    {
+        EnterSubMenu(tutorialUI);
         AudioFXPlayer.Instance.PlaySound(AudioFXPlayer.SoundEffect.buttonClick);
     }
     private void QuitButtonOnClick() {
