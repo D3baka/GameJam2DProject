@@ -190,6 +190,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("You lost the game time: " + Time.timeAsDouble);
         gameState = GameState.GameOver;
         OnGameStateChanged?.Invoke(this, new OnGameStateChangedEventArgs {  gameState = gameState});
+        AudioFXPlayer.Instance.PlaySound(AudioFXPlayer.SoundEffect.gameOverSound);
 
     }
 
