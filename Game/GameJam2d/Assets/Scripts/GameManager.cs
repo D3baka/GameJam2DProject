@@ -9,7 +9,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject monkeConfig;
         
     [SerializeField] private int playerMaxHitpoints;
-    [SerializeField] private UiManager mainSceneUIManager;
     private int playerHitpoints;
 
     [SerializeField] private int coinCount;
@@ -110,7 +109,7 @@ public class GameManager : MonoBehaviour
 
     public void PlayCard(Card.Type card)
     {
-        if(card == Card.Type.LEFT || card == Card.Type.RIGHT) 
+        if(card == Card.Type.LEFT || card == Card.Type.RIGHT || card == Card.Type.FORWARD) 
         {
             gridmanager.MovePlayer(card);
             return;
@@ -124,16 +123,24 @@ public class GameManager : MonoBehaviour
         {
             monkeConfig.SetActive(true);
             return;
-        }
-        if(card == Card.Type.FORWARD)
-        {
-            return;
-        }
+        }        
         if (card == Card.Type.SHIELD)
         {
             GainShield();
             return;
         }
+        if(card == Card.Type.DO_RANDOM_MOVE)
+        {
+            gridmanager.MovePlayerRandom();
+            return;
+        }
+        if(card == Card.Type.SPAWN_ASTEROID)
+        {
+            gridmanager.SpawnRandomAsteroid();
+            gridmanager.SpawnRandomAsteroid();
+            gridmanager.SpawnRandomAsteroid();
+        }
+        
     }
 
     public void AddCoins(int amount)

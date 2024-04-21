@@ -392,7 +392,7 @@ public class Gridmanager : MonoBehaviour
         //Do nothing
     }
 
-    private void SpawnRandomAsteroid()
+    public void SpawnRandomAsteroid()
     {
         List<Vector2> emptyPositions = new();
         for (int x = 0; x < grid.width; x++)
