@@ -21,7 +21,10 @@ public class MainMenuControlsUI : MonoBehaviour
 
     private void Awake() {
         returnButton.onClick.AddListener(ReturnButtonOnClick);
-        pauseButton.onClick.AddListener(() => { RebindBinding(UserInput.Binding.Pause); });
+        pauseButton.onClick.AddListener(() => { 
+            RebindBinding(UserInput.Binding.Pause);
+            AudioFXPlayer.Instance.PlaySound(AudioFXPlayer.SoundEffect.buttonClick);
+        });
         resetToDefaultsButton.onClick.AddListener(ResetToDefaultsButtonOnClick);
     }
 
@@ -31,6 +34,7 @@ public class MainMenuControlsUI : MonoBehaviour
     }
 
     private void ReturnButtonOnClick() {
+        AudioFXPlayer.Instance.PlaySound(AudioFXPlayer.SoundEffect.buttonClick);
         mainMenuUiController.ToMainMenu();
     }
 

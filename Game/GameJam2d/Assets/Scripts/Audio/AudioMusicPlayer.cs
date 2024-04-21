@@ -11,7 +11,7 @@ public class AudioMusicPlayer : MonoBehaviour
 
     private void Update()
     {
-        audioSource.volume = AudioManager.Instance.GetVolume(AudioManager.AudioGroup.Music);
+        audioSource.volume = AudioManager.Instance.GetVolume(AudioManager.AudioGroup.Music) * .1f;
         if(!audioSource.isPlaying)
             PlayNextSong();
     }

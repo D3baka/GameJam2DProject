@@ -37,22 +37,25 @@ public class MainMenuUiController : MonoBehaviour
 
     private void ControlsButtonOnClick() {
         EnterSubMenu(controlsUI);
+        AudioFXPlayer.Instance.PlaySound(AudioFXPlayer.SoundEffect.buttonClick);
     }
 
     private void SettingsButtonOnClick() {
         EnterSubMenu(settingsUI);
-
+        AudioFXPlayer.Instance.PlaySound(AudioFXPlayer.SoundEffect.buttonClick);
     }
     private void CreditsButtonOnClick() {
         EnterSubMenu(creditsUI);
-
+        AudioFXPlayer.Instance.PlaySound(AudioFXPlayer.SoundEffect.buttonClick);
     }
     private void QuitButtonOnClick() {
         Debug.Log("Ending the game!");
+        AudioFXPlayer.Instance.PlaySound(AudioFXPlayer.SoundEffect.buttonClick);
         Application.Quit();
     }
 
     private void StartGameButtonOnClick() {
+        AudioFXPlayer.Instance.PlaySound(AudioFXPlayer.SoundEffect.buttonClick);
         Debug.Log("Starting a new game!");
         Loader.Load(Loader.Scene.GameScene);
     }

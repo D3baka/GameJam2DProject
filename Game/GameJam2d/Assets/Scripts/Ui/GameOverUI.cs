@@ -15,6 +15,7 @@ public class GameOverUI : MonoBehaviour
 
     private void MainMenuButtonOnClick()
     {
+        AudioFXPlayer.Instance.PlaySound(AudioFXPlayer.SoundEffect.buttonClick);
         Loader.Load(Loader.Scene.MainMenu);
     }
 
