@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject shop;
         
     [SerializeField] private int playerMaxHitpoints;
-    [SerializeField] private UiManager mainSceneUIManager;
     private int playerHitpoints;
 
     [SerializeField] private int coinCount;
@@ -111,7 +110,7 @@ public class GameManager : MonoBehaviour
 
     public void PlayCard(Card.Type card)
     {
-        if(card == Card.Type.LEFT || card == Card.Type.RIGHT) 
+        if(card == Card.Type.LEFT || card == Card.Type.RIGHT || card == Card.Type.FORWARD) 
         {
             gridmanager.MovePlayer(card);
             return;
@@ -125,20 +124,28 @@ public class GameManager : MonoBehaviour
         {
             monkeConfig.SetActive(true);
             return;
-        }
-        if(card == Card.Type.FORWARD)
-        {
-            return;
-        }
+        }        
         if (card == Card.Type.SHIELD)
         {
             GainShield();
+            return;
+        }
+        if(card == Card.Type.DO_RANDOM_MOVE)
+        {
+            AudioFXPlayer.Instance.PlaySound(AudioFXPlayer.SoundEffect.randomMoveSound);
+            gridmanager.MovePlayerRandom();
             return;
         }
         if(card == Card.Type.SHOP)
         {
             shop.SetActive(true);
             return;
+        }
+        if(card == Card.Type.SPAWN_ASTEROID)
+        {
+            gridmanager.SpawnRandomAsteroid();
+            gridmanager.SpawnRandomAsteroid();
+            gridmanager.SpawnRandomAsteroid();
         }
     }
 
@@ -189,6 +196,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("You lost the game time: " + Time.timeAsDouble);
         gameState = GameState.GameOver;
         OnGameStateChanged?.Invoke(this, new OnGameStateChangedEventArgs {  gameState = gameState});
+        AudioFXPlayer.Instance.PlaySound(AudioFXPlayer.SoundEffect.gameOverSound);
 
     }
 

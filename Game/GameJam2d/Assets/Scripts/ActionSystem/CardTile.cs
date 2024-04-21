@@ -15,6 +15,8 @@ public class CardTile : MonoBehaviour
     [SerializeField] public bool moveable = true;
 
 
+    [SerializeField] private float dragScale = 1.5f;
+
     private int amount = 0;
 
     private Vector3 oldPos;
@@ -56,13 +58,17 @@ public class CardTile : MonoBehaviour
 
     private void OnMouseDown()
     {
+        transform.localScale = new Vector3(dragScale, dragScale, dragScale);
         oldPos = transform.position;
     }
 
     public void OnMouseUp()
     {
+
         if(moveable){
 
+            transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+     
             int LayerIgnoreRaycast = LayerMask.NameToLayer("Ignore Raycast");
             gameObject.layer = LayerIgnoreRaycast;
             // get coordinates of the mouse click

@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &157844772732124734
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5436474396230740409}
+  - component: {fileID: 7338004647136210579}
+  m_Layer: 0
+  m_Name: AudioFXPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5436474396230740409
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 157844772732124734}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 541.6777, y: 334.16797, z: -4.3431187}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7338004647136210579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 157844772732124734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5259ebafc388ed6438a013889a55ff57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  randomMoveSound: {fileID: 8300000, guid: d30ac1a0456c50845b4d8eeff644bcee, type: 3}
+  getCoinSound: {fileID: 8300000, guid: def0e9b2169ba2d49af17630ecbb59d1, type: 3}
+  shipHitSound: {fileID: 8300000, guid: fa308fa5b47497c419a6f9f9f178eead, type: 3}
+  projectileHitSound: {fileID: 8300000, guid: 4b3fc472ee135724184ae9c3d853a8a0, type: 3}
+  projectileFireSound: {fileID: 8300000, guid: 21ec54e7a87b5d1439e6b7a58dc89a7a, type: 3}
+  getShieldSound: {fileID: 8300000, guid: dee0b5308735ed144a515eb58d7fdc6d, type: 3}
+  gameOverSound: {fileID: 8300000, guid: acaeeb90784c17947ae11237d47ab894, type: 3}

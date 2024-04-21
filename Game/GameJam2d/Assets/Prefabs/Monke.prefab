@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: -1439180909, guid: 89d244ae358c56d4e904696a8e628fea, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -104,7 +104,6 @@ MonoBehaviour:
   - {fileID: 958845169, guid: 89d244ae358c56d4e904696a8e628fea, type: 3}
   - {fileID: -1672464895, guid: 89d244ae358c56d4e904696a8e628fea, type: 3}
   - {fileID: 2060579200, guid: 89d244ae358c56d4e904696a8e628fea, type: 3}
-  renderer: {fileID: 0}
   delaySeconds: 0.5
   delaySecondsMin: 0.3
   delaySecondsMax: 0.7
@@ -113,6 +112,10 @@ MonoBehaviour:
   - {fileID: -863831593, guid: 89d244ae358c56d4e904696a8e628fea, type: 3}
   - {fileID: 776566893, guid: 89d244ae358c56d4e904696a8e628fea, type: 3}
   - {fileID: -1991519487, guid: 89d244ae358c56d4e904696a8e628fea, type: 3}
+  extraAnimation2:
+  - {fileID: -1553336736, guid: 89d244ae358c56d4e904696a8e628fea, type: 3}
+  - {fileID: -666725559, guid: 89d244ae358c56d4e904696a8e628fea, type: 3}
+  - {fileID: -1540613998, guid: 89d244ae358c56d4e904696a8e628fea, type: 3}
 --- !u!114 &710514383544964929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,3 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ac2dcbb1b6f2954d8e5e6a39378637a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  evilProb: 5
+  parentHand: {fileID: 0}
+  monkeIndex: 0
+  drawAnimationTime: 2
