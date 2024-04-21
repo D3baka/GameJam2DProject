@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -10,6 +12,7 @@ public class CardTile : MonoBehaviour
 
     [SerializeField] public Card.Type type = Card.Type.BLANK;
     [SerializeField] public bool stackable = false;
+    [SerializeField] public bool moveable = true;
 
 
     [SerializeField] private float dragScale = 1.5f;
@@ -44,15 +47,18 @@ public class CardTile : MonoBehaviour
 
     public void OnMouseDrag()
     {
-        if(GameManager.Instance.gameState == GameManager.GameState.Running)
-        {
+      
+        if(GameManager.Instance.gameState == GameManager.GameState.Running){
+          if(type == Card.Type.BLANK || !moveable)
+          {
             if (type == Card.Type.BLANK)
             {
                 return;
             }
-            Vector3 newPos = GetMousePos();
-            newPos.z = oldPos.z;
-            transform.position = newPos;
+              Vector3 newPos = GetMousePos();
+              newPos.z = oldPos.z;
+              transform.position = newPos;
+          }
         }
        
     }
@@ -67,7 +73,8 @@ public class CardTile : MonoBehaviour
 
     public void OnMouseUp()
     {
-        if(GameManager.Instance.gameState == GameManager.GameState.Running)
+        if(GameManager.Instance.gameState != GameManager.GameState.Running) return;
+        if(moveable)
         {
             transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             int LayerIgnoreRaycast = LayerMask.NameToLayer("Ignore Raycast");
@@ -97,10 +104,13 @@ public class CardTile : MonoBehaviour
                     }
                 }
             }
-
             transform.position = oldPos;
         }
-        
+        else
+        {
+            stash.cardClicked(type);
+        }
+
     }
 
     private Vector3 GetMousePos()
@@ -112,6 +122,11 @@ public class CardTile : MonoBehaviour
 
     public bool setTile(Card.Type t)
     {
+        if (!stash.acceptCard(t))
+        {
+            return false;
+        }
+
         if(!stackable)
         {
             if(type != Card.Type.BLANK)
@@ -186,4 +201,8 @@ public class CardTile : MonoBehaviour
         amount++;
     }
 
+    internal void setMoveable(bool moveable)
+    {
+        this.moveable = moveable;
+    }
 }

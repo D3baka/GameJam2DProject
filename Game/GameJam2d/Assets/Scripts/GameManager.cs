@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Gridmanager gridmanager;
     [SerializeField] private GameObject monkeConfig;
+    [SerializeField] private GameObject shop;
         
     [SerializeField] private int playerMaxHitpoints;
     private int playerHitpoints;
@@ -135,13 +136,17 @@ public class GameManager : MonoBehaviour
             gridmanager.MovePlayerRandom();
             return;
         }
+        if(card == Card.Type.SHOP)
+        {
+            shop.SetActive(true);
+            return;
+        }
         if(card == Card.Type.SPAWN_ASTEROID)
         {
             gridmanager.SpawnRandomAsteroid();
             gridmanager.SpawnRandomAsteroid();
             gridmanager.SpawnRandomAsteroid();
         }
-        
     }
 
     public void AddCoins(int amount)
@@ -151,7 +156,7 @@ public class GameManager : MonoBehaviour
 
     public void RemoveCoins(int amount)
     {
-        if(coinCount - amount <= 0)
+        if(coinCount - amount >= 0)
         {
             coinCount -= amount;
         }

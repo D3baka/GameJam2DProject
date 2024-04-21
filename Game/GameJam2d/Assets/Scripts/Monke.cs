@@ -109,4 +109,22 @@ public class Monke : MonoBehaviour, IInteractable, IStash
             addCard(newCard);
         }
     }
+
+    public void cardClicked(Card.Type type)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public bool acceptCard(Card.Type t)
+    {
+        int cardAmount = 0;
+        for (int i = 0; i < cards.Count; i++)
+        {
+            if (cards[i] == (int)t)
+            {
+                cardAmount++;
+            }
+        }
+        return cardAmount <2;
+    }
 }
