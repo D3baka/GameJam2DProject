@@ -21,6 +21,8 @@ public class AudioFXPlayer : MonoBehaviour
     [SerializeField] private AudioClip positiveMonkey;
     [SerializeField] private AudioClip shipMove;
 
+    [SerializeField] private AudioClip buttonClick;
+
     private void Awake()
     {
         if (AudioFXPlayer.Instance == null)
@@ -69,10 +71,15 @@ public class AudioFXPlayer : MonoBehaviour
                 audioMulitply = .7f;
                 break;
             case SoundEffect.positiveMonkey:
-                clipToPlay = positiveMonkey;
+                // -> we do not want this to make a sound at the moment
+                return;
                 break;
             case SoundEffect.shipMove:
                 clipToPlay = shipMove;
+                break;
+            case SoundEffect.buttonClick:
+                clipToPlay = buttonClick;
+                audioMulitply = .5f;
                 break;
 
         }
@@ -100,6 +107,7 @@ public class AudioFXPlayer : MonoBehaviour
         monkeyScreaming,
         positiveMonkey,
         shipMove,
+        buttonClick,
 
         // Add more sound effects here
     }

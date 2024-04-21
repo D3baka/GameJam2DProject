@@ -21,18 +21,22 @@ public class PauseUI : MonoBehaviour
     }
 
     private void ReturnButtonOnClick() {
+        AudioFXPlayer.Instance.PlaySound(AudioFXPlayer.SoundEffect.buttonClick);
         GameManager.Instance.ChangeGameState(GameManager.GameState.Running);
     }
 
-    private void ControlsButtonOnClick() {        
+    private void ControlsButtonOnClick() {
+        AudioFXPlayer.Instance.PlaySound(AudioFXPlayer.SoundEffect.buttonClick);
         UiManager.Instance.EnterControls();
     }
 
     private void SettingsButtonOnClick() {
+        AudioFXPlayer.Instance.PlaySound(AudioFXPlayer.SoundEffect.buttonClick);
         UiManager.Instance.EnterSettings();
     }
 
     private void MainMenuButtonOnClick() {
+        AudioFXPlayer.Instance.PlaySound(AudioFXPlayer.SoundEffect.buttonClick);
         Loader.Load(Loader.Scene.MainMenu);
     }
 }
