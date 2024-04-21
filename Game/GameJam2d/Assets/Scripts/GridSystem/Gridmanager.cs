@@ -26,6 +26,7 @@ public class Gridmanager : MonoBehaviour
     private PlayerShip playerShip;
     private List<Projectile> projectiles = new();
 
+
     private Dictionary<int, HashSet<int>[]> wfcConstraints;
 
     private void Awake()
@@ -38,7 +39,18 @@ public class Gridmanager : MonoBehaviour
         {
             Debug.LogError("Too many Gridmanager Instances: " + Gridmanager.Instance);
         }
-        Vector3 offset = Camera.main.ScreenToWorldPoint(new Vector3(0,0,10));
+
+        //int xOffset = Screen.width;
+        //xOffset /= 2;
+        //  xOffset -=  11 * 16;
+        //xOffset -=(int)( 5.5f  * 16);
+
+   
+
+
+
+        Vector3 offset = new Vector3(-(11.0f / 2 * 2.0f), -11.0f + 6.45f -2.0f , 0);
+       
         grid = new Grid(11, 11, 2, offset);
 
         InitializeWFC();
@@ -303,25 +315,13 @@ public class Gridmanager : MonoBehaviour
         {
             case Card.Type.LEFT:
                 {
-                    //Debug.Log("Moving player left from position: " + playerShip.xPosition + " " + playerShip.yPosition);
-                    int newX = playerShip.xPosition - 1;
-                    if (newX < 0)
-                    {
-                        newX = grid.width - 1;
-                    }
-                    MoveTileBlocker(playerShip.xPosition, playerShip.yPosition, newX, playerShip.yPosition);
+                    MovePlayerLeft();
                     break;
                 }
                 
             case Card.Type.RIGHT:
                 {
-                    //Debug.Log("Moving player right from position: " + playerShip.xPosition + " " + playerShip.yPosition);
-                    int newX = playerShip.xPosition + 1;
-                    if (newX >= grid.width)
-                    {
-                        newX = 0;
-                    }
-                    MoveTileBlocker(playerShip.xPosition, playerShip.yPosition, newX, playerShip.yPosition);
+                    MovePlayerRight();
                     break;
                 }
                 
@@ -335,6 +335,78 @@ public class Gridmanager : MonoBehaviour
         SpawnTileBlocker(SpaceGridTileBlocker.Projectile, playerShip.xPosition, playerShip.yPosition + 1, Projectile.FlightDirection.UP);
     }
 
+    public void ActivateShield()
+    {
+        playerShip.shieldVisual.SetActive(true);
+    }
+
+    public void DeactivateShield()
+    {
+        playerShip.shieldVisual.SetActive(false);
+    }
+
+    public void MovePlayerRandom()
+    {
+        int randomIndex = UnityEngine.Random.Range(0, 2);
+        if(randomIndex == 0)
+        {
+           MovePlayerForward();
+        }
+        if(randomIndex == 1)
+        {
+            MovePlayerLeft();
+        }
+        if (randomIndex == 2)
+        {
+            MovePlayerRight();
+        }
+    }
+
+    private void MovePlayerLeft()
+    {
+        //Debug.Log("Moving player left from position: " + playerShip.xPosition + " " + playerShip.yPosition);
+        int newX = playerShip.xPosition - 1;
+        if (newX < 0)
+        {
+            newX = grid.width - 1;
+        }
+        MoveTileBlocker(playerShip.xPosition, playerShip.yPosition, newX, playerShip.yPosition);
+    }
+
+    private void MovePlayerRight()
+    {
+        //Debug.Log("Moving player right from position: " + playerShip.xPosition + " " + playerShip.yPosition);
+        int newX = playerShip.xPosition + 1;
+        if (newX >= grid.width)
+        {
+            newX = 0;
+        }
+        MoveTileBlocker(playerShip.xPosition, playerShip.yPosition, newX, playerShip.yPosition);
+        
+    }
+
+    private void MovePlayerForward()
+    {
+        //Do nothing
+    }
+
+    private void SpawnRandomAsteroid()
+    {
+        List<Vector2> emptyPositions = new();
+        for (int x = 0; x < grid.width; x++)
+        {
+            for (int y = 2; y < grid.height; y++)
+            {
+                ITileblocker tileblocker;
+                if (grid.GetTileBlockerFromPosition(x,y, out tileblocker))
+                {
+                    emptyPositions.Add(new Vector2(x,y));
+                }
+            }
+        }
+        int randomIndex = UnityEngine.Random.Range(0, emptyPositions.Count -1);
+        SpawnTileBlocker(SpaceGridTileBlocker.Asteroid, (int)emptyPositions[randomIndex].x, (int)emptyPositions[randomIndex].y);
+    }
 
     public enum SpaceGridTileBlocker
     {
@@ -343,7 +415,6 @@ public class Gridmanager : MonoBehaviour
         Coin,
         PlayerShip,
         Projectile,
-
         WFCTileBlocker,
     }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Debaka.Utils;
 
+[System.Serializable]
 public class Grid
 {
     public readonly int width;
@@ -32,7 +33,7 @@ public class Grid
 
         //Debug Gizmos
 
-        bool isDebug = false;
+        bool isDebug = true;
         if (isDebug)
         {
             debugTextArray = new TextMesh[width, height];
@@ -40,7 +41,7 @@ public class Grid
             {
                 for (int y = 0; y < tiles.GetLength(1); y++)
                 {
-                    debugTextArray[x, y] = UtilsClass.CreateWorldText(tiles[x, y]?.ToString(), null, GetWorldPosition(x, y) + new Vector3(cellSize, cellSize) * .5f, new Vector3(0, 0, 1), 20, Color.white, TextAnchor.MiddleCenter);
+                    //debugTextArray[x, y] = UtilsClass.CreateWorldText(tiles[x, y]?.ToString(), null, GetWorldPosition(x, y) + new Vector3(cellSize, cellSize) * .5f, new Vector3(0, 0, 1), 20, Color.white, TextAnchor.MiddleCenter);
                     Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x, y + 1), Color.white, 100f);
                     Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x + 1, y), Color.white, 100f);
 

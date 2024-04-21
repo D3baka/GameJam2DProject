@@ -6,6 +6,8 @@ public class PlayerShip : MonoBehaviour, ITileblocker
 {
     public int xPosition { get; private set; }
     public int yPosition { get; private set; }
+
+    [SerializeField] public GameObject shieldVisual;
     public void SetPosition(int xPosition, int yPosition)
     {
         this.xPosition = xPosition;

@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -14,6 +12,8 @@ public class GameManager : MonoBehaviour
     private int playerHitpoints;
 
     [SerializeField] private int coinCount;
+    private bool isShielded = false;
+    private int shieldTimeLeft;
 
     public GameState gameState {  get; private set; }  
     
@@ -96,6 +96,15 @@ public class GameManager : MonoBehaviour
     public void NextTurn()
     {
         gridmanager.NextTurn();
+        if (isShielded)
+        {
+            shieldTimeLeft--;
+            if(shieldTimeLeft <= 0)
+            {
+                isShielded = false;
+                gridmanager.DeactivateShield();
+            }
+        }
     }
 
     public void PlayCard(Card.Type card)
@@ -141,6 +150,12 @@ public class GameManager : MonoBehaviour
 
     private void TakeDamage(int value)
     {
+        if(isShielded)
+        {
+            isShielded = false;
+            gridmanager.DeactivateShield();
+            return;
+        }
         playerHitpoints -= value;
         if(playerHitpoints <= 0)
         {
@@ -154,6 +169,13 @@ public class GameManager : MonoBehaviour
         gameState = GameState.GameOver;
         OnGameStateChanged?.Invoke(this, new OnGameStateChangedEventArgs {  gameState = gameState});
 
+    }
+
+    private void GainShield()
+    {
+        isShielded = true;
+        shieldTimeLeft = 5;
+        gridmanager.ActivateShield();
     }
 
     public enum GameState
