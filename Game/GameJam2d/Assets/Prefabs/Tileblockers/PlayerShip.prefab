@@ -26,8 +26,8 @@ Transform:
   m_GameObject: {fileID: 2609818199724085738}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.04, y: 0.57, z: 0}
-  m_LocalScale: {x: 3.45, y: 6.13, z: 3.45}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2236541962467760113}
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 330455989, guid: 0d22374c3e7d5fc428731a725e69ff50, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f37211f52bd0f184ca728ddd671ae7c2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -185,12 +185,12 @@ MonoBehaviour:
   idleSprites:
   - {fileID: 1664308544, guid: ee1ae29de25aae24e823536f69f87deb, type: 3}
   - {fileID: 1480736203, guid: ee1ae29de25aae24e823536f69f87deb, type: 3}
-  renderer: {fileID: 0}
   delaySeconds: 0.5
   delaySecondsMin: 0.3
   delaySecondsMax: 0.8
   randomize: 1
   extraAnimation: []
+  extraAnimation2: []
 --- !u!114 &4299672882737140868
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -230,6 +230,11 @@ public class GameManager : MonoBehaviour
         gridmanager.ActivateShield();
     }
 
+    public int getLives()
+    {
+        return playerHitpoints;
+    }
+
     public enum GameState
     {
         Running,
