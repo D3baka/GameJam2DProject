@@ -8,11 +8,16 @@ public class Monke : MonoBehaviour, IInteractable, IStash
     private List<int> cards = new List<int>(4);
 
     [SerializeField] int evilProb = 5;
+    [SerializeField] Hand parentHand;
+    [SerializeField] int monkeIndex;
     
 
     public void addCard(Card.Type card)
     {
         cards.Add((int)card);
+        if(cards.Count == 3) { 
+            parentHand.monkeReady(monkeIndex);
+        }
     }
 
     public void removeCard(Card.Type card)

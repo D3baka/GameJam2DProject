@@ -125,6 +125,15 @@ public class GameManager : MonoBehaviour
             monkeConfig.SetActive(true);
             return;
         }
+        if(card == Card.Type.FORWARD)
+        {
+            return;
+        }
+        if (card == Card.Type.SHIELD)
+        {
+            GainShield();
+            return;
+        }
     }
 
     public void AddCoins(int amount)
