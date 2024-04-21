@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2305243224466290190}
   - component: {fileID: 5903277103199738090}
-  - component: {fileID: 7716324149314807940}
   m_Layer: 0
   m_Name: ActionStashGrid
   m_TagString: Untagged
@@ -52,20 +51,10 @@ MonoBehaviour:
   height: 3
   width: 4
   stacked: 1
+  moveable: 1
   spacing: 1
   stashGO: {fileID: 5834211174925412544}
+  z: -6
   cardTilePrefab: {fileID: 3995723262774524316, guid: ab2e3d8e8ab9cc94e97b457bef946a3d, type: 3}
   cornerTile: {fileID: 684878236075516102, guid: 6f57c23961d2d8e4ebfd14b10af71236, type: 3}
   edgeTile: {fileID: 9156355726405333936, guid: 60945a3f1a7d16041bc94c35ce3cf4f1, type: 3}
---- !u!114 &7716324149314807940
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5834211174925412544}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02a190abfb17e38419af0e4ad9cdf481, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
