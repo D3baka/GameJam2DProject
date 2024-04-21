@@ -44,53 +44,63 @@ public class CardTile : MonoBehaviour
 
     public void OnMouseDrag()
     {
-        if(type == Card.Type.BLANK)
+        if(GameManager.Instance.gameState == GameManager.GameState.Running)
         {
-            return;
+            if (type == Card.Type.BLANK)
+            {
+                return;
+            }
+            Vector3 newPos = GetMousePos();
+            newPos.z = oldPos.z;
+            transform.position = newPos;
         }
-        Vector3 newPos = GetMousePos();
-        newPos.z = oldPos.z;
-        transform.position = newPos;
+       
     }
 
     private void OnMouseDown()
     {
-        transform.localScale = new Vector3(dragScale, dragScale, dragScale);
-        oldPos = transform.position;
+        if(GameManager.Instance.gameState == GameManager.GameState.Running){
+          transform.localScale = new Vector3(dragScale, dragScale, dragScale);
+          oldPos = transform.position;
+        }
     }
 
     public void OnMouseUp()
     {
-        transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        int LayerIgnoreRaycast = LayerMask.NameToLayer("Ignore Raycast");
-        gameObject.layer = LayerIgnoreRaycast;
-        // get coordinates of the mouse click
-        Vector3 mousePos = GetMousePos();
-        Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
-
-        RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
-
-        int LayerDefault = LayerMask.NameToLayer("Default");
-        gameObject.layer = LayerDefault;
-
-        if (hit.collider != null)
+        if(GameManager.Instance.gameState == GameManager.GameState.Running)
         {
-            // check if the object clicked implements the interface Interactable
-            if (hit.collider.gameObject.GetComponent<CardTile>() != null)
+            transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            int LayerIgnoreRaycast = LayerMask.NameToLayer("Ignore Raycast");
+            gameObject.layer = LayerIgnoreRaycast;
+            // get coordinates of the mouse click
+            Vector3 mousePos = GetMousePos();
+            Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
+
+            RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
+
+            int LayerDefault = LayerMask.NameToLayer("Default");
+            gameObject.layer = LayerDefault;
+
+            if (hit.collider != null)
             {
-                if (hit.collider.gameObject.GetComponent<CardTile>().setTile(type))
+                // check if the object clicked implements the interface Interactable
+                if (hit.collider.gameObject.GetComponent<CardTile>() != null)
                 {
-                    amount--;
-                    Debug.Log("Es wurde eins abgezogen jetztz simmer noch: " + amount);
-                    if(amount <= 0)
+                    if (hit.collider.gameObject.GetComponent<CardTile>().setTile(type))
                     {
-                        setTile(Card.Type.BLANK);
+                        amount--;
+                        Debug.Log("Es wurde eins abgezogen jetztz simmer noch: " + amount);
+                        if (amount <= 0)
+                        {
+                            setTile(Card.Type.BLANK);
+                        }
                     }
                 }
             }
-        }
 
-        transform.position = oldPos;
+            transform.position = oldPos;
+        }
+        
     }
 
     private Vector3 GetMousePos()
