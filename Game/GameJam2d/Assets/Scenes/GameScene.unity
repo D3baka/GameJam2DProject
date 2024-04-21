@@ -2227,7 +2227,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 505130508793732720, guid: fa5633d25829eb94abcbefab60fe1e62, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4534383358942537273, guid: fa5633d25829eb94abcbefab60fe1e62, type: 3}
       propertyPath: stashGO

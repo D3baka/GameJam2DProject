@@ -132,3 +132,4 @@ MonoBehaviour:
   evilProb: 5
   parentHand: {fileID: 0}
   monkeIndex: 0
+  drawAnimationTime: 2

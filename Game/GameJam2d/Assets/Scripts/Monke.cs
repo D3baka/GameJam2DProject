@@ -10,7 +10,42 @@ public class Monke : MonoBehaviour, IInteractable, IStash
     [SerializeField] int evilProb = 5;
     [SerializeField] Hand parentHand;
     [SerializeField] int monkeIndex;
+
+    private SpriteAnimator spriteAnimator;
+    private bool evil;
+    private float timer;
+    [SerializeField] private float drawAnimationTime;
+
+    void Start()
+    {
+        spriteAnimator = GetComponent<SpriteAnimator>();
+    }
     
+    void Update()
+    {
+       
+        if (timer <= 0)
+        {
+            spriteAnimator.stopAnimation();
+            spriteAnimator.stopAnimation2();
+
+            transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            return;
+        }
+
+        timer -= Time.deltaTime;
+
+        // increase size
+        
+        transform.localScale = new Vector3(1.5f, 1.5f, 1.2f);
+       
+
+        if (evil)
+            spriteAnimator.playAnimation2();
+        else
+            spriteAnimator.playAnimation();
+
+    }
 
     public void addCard(Card.Type card)
     {
@@ -28,6 +63,10 @@ public class Monke : MonoBehaviour, IInteractable, IStash
 
     public Card.Type drawCard()
     {
+
+        timer = drawAnimationTime;
+        evil = false;
+        
         if (cards.Count != 3)
         {
             return Card.Type.BLANK;
@@ -38,6 +77,8 @@ public class Monke : MonoBehaviour, IInteractable, IStash
         int evilRand = Random.Range(0, evilProb);
         if (evilRand == 2)
         {
+            evil = true;
+
             Card.Type[] evilTypes = new Card.Type[2];
             evilTypes[0] = Card.Type.DO_RANDOM_MOVE;
             evilTypes[1] = Card.Type.SPAWN_ASTEROID;
