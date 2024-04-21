@@ -34,6 +34,11 @@ public class CardTile : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
+    private void Update()
+    {
+        updateIcon();
+    }
+
     public void updateIcon()
     {
         spriteRenderer.sprite = CardIconManager.Instance.GetCardIcon(this.type);
@@ -168,7 +173,6 @@ public class CardTile : MonoBehaviour
         stash.changeCard(type, t);
         
         this.type = t;
-        updateIcon();
         return true;
     }
 
