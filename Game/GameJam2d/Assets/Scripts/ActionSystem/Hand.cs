@@ -31,8 +31,17 @@ public class Hand : MonoBehaviour
             return;
         }
 
+        if(type == Card.Type.SHUFFLE ) {
+            for (int i = 0; i < cards.Length; i++)
+            {
+                cards[i].setType(monkes[i].drawCard());
+            }
+        }
+        else
+        {
+            GameManager.Instance.PlayCard(type);
+        }
 
-        GameManager.Instance.PlayCard(type);
         GameManager.Instance.NextTurn();
 
         cards[index].setType(monkes[index].drawCard());
