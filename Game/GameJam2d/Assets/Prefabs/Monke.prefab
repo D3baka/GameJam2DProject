@@ -104,7 +104,7 @@ MonoBehaviour:
   - {fileID: 958845169, guid: 89d244ae358c56d4e904696a8e628fea, type: 3}
   - {fileID: -1672464895, guid: 89d244ae358c56d4e904696a8e628fea, type: 3}
   - {fileID: 2060579200, guid: 89d244ae358c56d4e904696a8e628fea, type: 3}
-  rnd: {fileID: 2261866956838728733}
+  renderer: {fileID: 0}
   delaySeconds: 0.5
   delaySecondsMin: 0.3
   delaySecondsMax: 0.7

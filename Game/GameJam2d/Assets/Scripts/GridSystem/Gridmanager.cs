@@ -15,6 +15,8 @@ public class Gridmanager : MonoBehaviour
     [SerializeField] private Projectile projectilePrefab;
     [SerializeField] private Coin coinPrefab;
 
+   
+
     public static Gridmanager Instance { get; private set; }
 
     // array that represents tile map:
@@ -49,7 +51,7 @@ public class Gridmanager : MonoBehaviour
 
 
 
-        Vector3 offset = new Vector3(-(11.0f / 2 * 2.0f), -11.0f + 6.45f -2.0f , 0);
+        Vector3 offset = new Vector3(-(11.0f / 2 * 2.0f), -11.0f + 6.45f -3.2f , 0);
        
         grid = new Grid(11, 11, 2, offset);
 
@@ -95,7 +97,7 @@ public class Gridmanager : MonoBehaviour
             }
         }
 
-        generateNewLine();
+        generateNewLine(grid.height - 1);
     }
 
     private void SpawnTileBlocker(SpaceGridTileBlocker toSpawn, int _x, int _y)
@@ -115,7 +117,7 @@ public class Gridmanager : MonoBehaviour
                 tileblocker = blocker;
                 tileblocker.SetGridPosition(pos);
                 break;
-            case SpaceGridTileBlocker.AsteroidCenter:
+            case SpaceGridTileBlocker.AsteroidCore:
                 tileblocker = SpawnAsteroidMiddle();
                 tileblocker.SetGridPosition(pos);
                 break;
@@ -411,11 +413,11 @@ public class Gridmanager : MonoBehaviour
     public enum SpaceGridTileBlocker
     {
         Asteroid,
-        AsteroidCenter,
+        AsteroidCore,
         Coin,
         PlayerShip,
         Projectile,
-        WFCTileBlocker,
+        WFCTileBlocker
     }
 
 
@@ -520,39 +522,44 @@ public class Gridmanager : MonoBehaviour
                 updateNeighborsConstraints(wfcBlocker, y);
             }
         }
+
+
         for (int y = 0; y < empytRows; y++)
-        {
-            for (int x = 0; x < grid.width; x++)
-            {
-                ITileblocker blocker = null;
-                grid.FreePosition(x, y, out blocker);
+         {
+             for (int x = 0; x < grid.width; x++)
+             {
+                 ITileblocker blocker = null;
+                 grid.FreePosition(x, y, out blocker);
 
-                int state = (blocker as WFCBlocker).GetState();
+                 int state = (blocker as WFCBlocker).GetState();
 
-                Destroy(blocker.GetGameObject());
+                 Destroy(blocker.GetGameObject());
 
-                switch (state)
-                {
-                    case 0:
-                        // do nothing because nothingness and empytness is in space as well in my thoughts 
-                        break;
-                    case 1:
-                        SpawnTileBlocker(SpaceGridTileBlocker.Asteroid, x, y);
-                        break;
-                    case 2:
-                        SpawnTileBlocker(SpaceGridTileBlocker.AsteroidCenter, x, y);
+                 switch (state)
+                 {
+                     case 0:
+                         // do nothing because nothingness and empytness is in space as well in my thoughts 
+                         break;
+                     case 1:
+                         SpawnTileBlocker(SpaceGridTileBlocker.Asteroid, x, y);
+                         break;
+                     case 2:
+                         SpawnTileBlocker(SpaceGridTileBlocker.AsteroidCore, x, y);
+                         break;
+                    case 3:
+                        SpawnTileBlocker(SpaceGridTileBlocker.Coin, x, y);
                         break;
                     default:
-                        break;
-                }
-            }
+                         break;
+                 }
+             }
 
-        }
-        // now iterate through remaining rows and do wfc collapse
-        for (int y = empytRows; y < grid.height; y++)
-        {
-            collapseRow(y);
-        }
+         }
+         // now iterate through remaining rows and do wfc collapse
+         for (int y = empytRows; y < grid.height; y++)
+         {
+             collapseRow(y);
+         }
 
     }
 
@@ -589,11 +596,11 @@ public class Gridmanager : MonoBehaviour
                     SpawnTileBlocker(SpaceGridTileBlocker.Asteroid, x, row);
                     break;
                 case 2:
-                    SpawnTileBlocker(SpaceGridTileBlocker.AsteroidCenter, x, row);
+                    SpawnTileBlocker(SpaceGridTileBlocker.AsteroidCore, x, row);
                     break;
                 case 3:
                     SpawnTileBlocker(SpaceGridTileBlocker.Coin, x, row);
-                    break;
+                    break;         
                 default:
                     break;
             }
@@ -692,16 +699,16 @@ public class Gridmanager : MonoBehaviour
         return lowestEntropyBlocker;
     }
 
-    private void generateNewLine()
+    private void generateNewLine(int heighta)
     {
         // fill last line with wfc blocker
         for (int x = 0; x < grid.width; x++)
         {
-            SpawnTileBlocker(SpaceGridTileBlocker.WFCTileBlocker, x, grid.height - 1);
+            SpawnTileBlocker(SpaceGridTileBlocker.WFCTileBlocker, x, heighta);
 
         }
         bool change = true;
-        int y = grid.height - 1;
+        int y = heighta;
         while (change)
         {
             change = false;
@@ -759,14 +766,14 @@ public class Gridmanager : MonoBehaviour
         // DONT FORGET ADJUSTING GENERATE NEW LINE
         probability = new int[4];
         probability[0] = 100;
-        probability[1] = 30;
-        probability[2] = 80;
+        probability[1] = 10;
+        probability[2] = 10;
         probability[3] = 10;
-
+        
         wfcGridArray = new int[,]
         {
            {0, 0, 0, 0, 0, 0 },
-           {0, 3, 0, 0, 0, 0 },
+           {0, 1, 0, 3, 0, 0 },
            {0, 0, 0, 0, 0, 0 },
            {0, 0, 1, 0, 0, 0 },
            {0, 1, 2, 1, 0, 0 },
@@ -799,10 +806,10 @@ public class Gridmanager : MonoBehaviour
         if ((neighborBlocker as Asteroid) != null)
             return 1;
         else if ((neighborBlocker as AsteroidCore) != null)
-           return 2;
-        else if((neighborBlocker as Coin) != null)
+            return 2;
+        else if ((neighborBlocker as Coin) != null)
             return 3;
-
+       
         return 0;
     }
   

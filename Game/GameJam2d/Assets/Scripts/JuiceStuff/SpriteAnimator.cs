@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class SpriteAnimator : MonoBehaviour
 {
-
+    
     [SerializeField] private Sprite[] idleSprites;
 
-    [SerializeField] private SpriteRenderer rnd;
+    [SerializeField] private SpriteRenderer renderer;
     [SerializeField] private float delaySeconds;
     [SerializeField] private float delaySecondsMin;
     [SerializeField] private float delaySecondsMax;
@@ -28,7 +28,9 @@ public class SpriteAnimator : MonoBehaviour
     {
         Timer = 0;
         reDelay();
-        
+
+        renderer = GetComponent<SpriteRenderer>();
+
     }
 
     // Update is called once per frame
@@ -52,7 +54,8 @@ public class SpriteAnimator : MonoBehaviour
 
             if (zustand >= currentAnimation.Length) zustand = 0;
 
-            rnd.sprite = currentAnimation[zustand];
+            if (currentAnimation.Length > 0)
+                renderer.sprite = currentAnimation[zustand];
             zustand = zustand + 1;
 
 
