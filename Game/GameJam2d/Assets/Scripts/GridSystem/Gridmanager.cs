@@ -409,13 +409,16 @@ public class Gridmanager : MonoBehaviour
             for (int y = 2; y < grid.height; y++)
             {
                 ITileblocker tileblocker;
-                if (grid.GetTileBlockerFromPosition(x,y, out tileblocker))
+                if (!grid.GetTileBlockerFromPosition(x,y, out tileblocker))
                 {
                     emptyPositions.Add(new Vector2(x,y));
+                    //Debug.Log("Adding free position " + x + "," + y);
                 }
             }
         }
+        //Debug.Log(emptyPositions.Count);
         int randomIndex = UnityEngine.Random.Range(0, emptyPositions.Count -1);
+        //bug.Log("Spawning Asteroid at free position " + emptyPositions[randomIndex].x + "," + emptyPositions[randomIndex].y);
         SpawnTileBlocker(SpaceGridTileBlocker.Asteroid, (int)emptyPositions[randomIndex].x, (int)emptyPositions[randomIndex].y);
     }
 
