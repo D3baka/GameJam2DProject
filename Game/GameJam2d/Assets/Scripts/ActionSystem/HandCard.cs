@@ -38,10 +38,12 @@ public class HandCard : MonoBehaviour, IInteractable
 
     public void Clicked()
     {
-        if (timer > 0)
+        if(GameManager.Instance.gameState == GameManager.GameState.Running){
+          if (timer > 0)
             return;
         
-       hand.playCard(index);
+            hand.playCard(index);
+        }
     }
 
     public void setType(Card.Type type)

@@ -47,28 +47,36 @@ public class CardTile : MonoBehaviour
 
     public void OnMouseDrag()
     {
-        if(type == Card.Type.BLANK || !moveable)
-        {
-            return;
+      
+        if(GameManager.Instance.gameState == GameManager.GameState.Running){
+          if(type == Card.Type.BLANK || !moveable)
+          {
+            if (type == Card.Type.BLANK)
+            {
+                return;
+            }
+              Vector3 newPos = GetMousePos();
+              newPos.z = oldPos.z;
+              transform.position = newPos;
+          }
         }
-        Vector3 newPos = GetMousePos();
-        newPos.z = oldPos.z;
-        transform.position = newPos;
+       
     }
 
     private void OnMouseDown()
     {
-        transform.localScale = new Vector3(dragScale, dragScale, dragScale);
-        oldPos = transform.position;
+        if(GameManager.Instance.gameState == GameManager.GameState.Running){
+          transform.localScale = new Vector3(dragScale, dragScale, dragScale);
+          oldPos = transform.position;
+        }
     }
 
     public void OnMouseUp()
     {
-
-        if(moveable){
-
+        if(GameManager.Instance.gameState != GameManager.GameState.Running) return;
+        if(moveable)
+        {
             transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-     
             int LayerIgnoreRaycast = LayerMask.NameToLayer("Ignore Raycast");
             gameObject.layer = LayerIgnoreRaycast;
             // get coordinates of the mouse click
@@ -96,7 +104,6 @@ public class CardTile : MonoBehaviour
                     }
                 }
             }
-
             transform.position = oldPos;
         }
         else
