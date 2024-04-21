@@ -16,6 +16,11 @@ public class GameManager : MonoBehaviour
     private bool isShielded = false;
     private int shieldTimeLeft;
 
+    [SerializeField] private float typingSoundTimerMax;
+    [SerializeField] private float typingSoundTimerMin;
+    private float typingSoundTimer;
+    
+
     public GameState gameState {  get; private set; }  
     
     public class OnGameStateChangedEventArgs : EventArgs
@@ -38,11 +43,13 @@ public class GameManager : MonoBehaviour
 
         playerHitpoints = playerMaxHitpoints;
         gameState = GameState.Running;
+        
     }
 
     private void Start()
     {
         UserInput.Instance.OnPauseAction += Instance_OnPauseAction;
+        SetTimerToRandom();
     }
 
     private void OnDestroy()
@@ -71,6 +78,21 @@ public class GameManager : MonoBehaviour
             PlayCard(Card.Type.SHOOT);
         }
 
+        if(gameState == GameState.Running)
+        {
+            typingSoundTimer -= Time.deltaTime;
+            if (typingSoundTimer < 0)
+            {
+                AudioFXPlayer.Instance.PlaySound(AudioFXPlayer.SoundEffect.monkeyTyping);
+                SetTimerToRandom();
+            }
+        }
+       
+    }
+
+    private void SetTimerToRandom()
+    {
+        typingSoundTimer = UnityEngine.Random.Range(typingSoundTimerMin, typingSoundTimerMax);
     }
 
     private void Instance_OnPauseAction(object sender, EventArgs e)
@@ -113,6 +135,7 @@ public class GameManager : MonoBehaviour
         if(card == Card.Type.LEFT || card == Card.Type.RIGHT || card == Card.Type.FORWARD) 
         {
             gridmanager.MovePlayer(card);
+            AudioFXPlayer.Instance.PlaySound(AudioFXPlayer.SoundEffect.shipMove);
             return;
         }
         if(card == Card.Type.SHOOT)

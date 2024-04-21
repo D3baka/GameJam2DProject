@@ -78,6 +78,7 @@ public class Monke : MonoBehaviour, IInteractable, IStash
         if (evilRand == 2)
         {
             evil = true;
+            AudioFXPlayer.Instance.PlaySound(AudioFXPlayer.SoundEffect.monkeyScreaming);
 
             Card.Type[] evilTypes = new Card.Type[2];
             evilTypes[0] = Card.Type.DO_RANDOM_MOVE;
@@ -86,6 +87,7 @@ public class Monke : MonoBehaviour, IInteractable, IStash
             return evilTypes[i];
         }
 
+        AudioFXPlayer.Instance.PlaySound(AudioFXPlayer.SoundEffect.positiveMonkey);
 
         // random card
         int index = Random.Range(0, cards.Count);

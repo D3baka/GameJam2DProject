@@ -15,9 +15,11 @@ public class AudioFXPlayer : MonoBehaviour
     [SerializeField] private AudioClip projectileHitSound;
     [SerializeField] private AudioClip projectileFireSound;
     [SerializeField] private AudioClip getShieldSound;
-
+    [SerializeField] private AudioClip monkeyTyping;
+    [SerializeField] private AudioClip monkeyScreaming;
     [SerializeField] private AudioClip gameOverSound;
-
+    [SerializeField] private AudioClip positiveMonkey;
+    [SerializeField] private AudioClip shipMove;
 
     private void Awake()
     {
@@ -33,6 +35,7 @@ public class AudioFXPlayer : MonoBehaviour
 
     public void PlaySound(SoundEffect sound)
     {
+        float audioMulitply = 1.0f;
         AudioClip clipToPlay = null;
 
         switch (sound)
@@ -58,12 +61,25 @@ public class AudioFXPlayer : MonoBehaviour
             case SoundEffect.getShieldSound:
                 clipToPlay = getShieldSound;
                 break;
+            case SoundEffect.monkeyTyping:
+                clipToPlay = monkeyTyping;
+                break;
+            case SoundEffect.monkeyScreaming:
+                clipToPlay = monkeyScreaming;
+                audioMulitply = .7f;
+                break;
+            case SoundEffect.positiveMonkey:
+                clipToPlay = positiveMonkey;
+                break;
+            case SoundEffect.shipMove:
+                clipToPlay = shipMove;
+                break;
 
         }
 
         if (clipToPlay != null)
         {
-            AudioSource.PlayClipAtPoint(clipToPlay,Camera.main.transform.position, AudioManager.Instance.GetVolume(AudioManager.AudioGroup.SFX));
+            AudioSource.PlayClipAtPoint(clipToPlay,Camera.main.transform.position, AudioManager.Instance.GetVolume(AudioManager.AudioGroup.SFX) * audioMulitply);
         }
         else
         {
@@ -80,6 +96,10 @@ public class AudioFXPlayer : MonoBehaviour
         projectileFireSound,
         gameOverSound,
         getShieldSound,
+        monkeyTyping,
+        monkeyScreaming,
+        positiveMonkey,
+        shipMove,
 
         // Add more sound effects here
     }
