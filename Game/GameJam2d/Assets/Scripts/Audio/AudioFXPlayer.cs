@@ -22,6 +22,8 @@ public class AudioFXPlayer : MonoBehaviour
     [SerializeField] private AudioClip shipMove;
 
     [SerializeField] private AudioClip buttonClick;
+    [SerializeField] private AudioClip shopNo;
+    [SerializeField] private AudioClip shopYes;
 
     private void Awake()
     {
@@ -81,6 +83,12 @@ public class AudioFXPlayer : MonoBehaviour
                 clipToPlay = buttonClick;
                 audioMulitply = .5f;
                 break;
+            case SoundEffect.shopNo:
+                clipToPlay = shopNo;
+                break;
+            case SoundEffect.shopYes:
+                clipToPlay = shopYes;
+                break;
 
         }
 
@@ -108,6 +116,8 @@ public class AudioFXPlayer : MonoBehaviour
         positiveMonkey,
         shipMove,
         buttonClick,
+        shopNo,
+        shopYes,
 
         // Add more sound effects here
     }

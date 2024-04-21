@@ -56,3 +56,5 @@ MonoBehaviour:
   positiveMonkey: {fileID: 8300000, guid: d467693bb30347745b1d9cd668fba8cc, type: 3}
   shipMove: {fileID: 8300000, guid: 439343636f6945d4bad7d22f5ae9f600, type: 3}
   buttonClick: {fileID: 8300000, guid: bb3c11b868d79be4cbe63b16f17acfa3, type: 3}
+  shopNo: {fileID: 8300000, guid: 8aa8346d88b6aac4ea7ec2a88e316053, type: 3}
+  shopYes: {fileID: 8300000, guid: ca2fe852cfe82674bbfc8183a4af16f3, type: 3}

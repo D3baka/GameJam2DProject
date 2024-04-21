@@ -28,6 +28,11 @@ public class Shop : MonoBehaviour, IStash
         {
             GameManager.Instance.RemoveCoins(prices[type]);
             cardStash.addNewCard(type);
+            AudioFXPlayer.Instance.PlaySound(AudioFXPlayer.SoundEffect.shopYes);
+        }
+        else
+        {
+            AudioFXPlayer.Instance.PlaySound(AudioFXPlayer.SoundEffect.shopNo);
         }
     }
 
