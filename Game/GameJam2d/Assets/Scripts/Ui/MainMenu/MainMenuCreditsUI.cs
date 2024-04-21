@@ -16,6 +16,7 @@ public class MainMenuCreditsUI : MonoBehaviour
     }
 
     private void ReturnButtonOnClick() {
+        AudioFXPlayer.Instance.PlaySound(AudioFXPlayer.SoundEffect.buttonClick);
         mainMenuUiController.ToMainMenu();
     }
 }

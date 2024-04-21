@@ -38,10 +38,12 @@ public class SettingsUI : MonoBehaviour
     }
 
     private void ReturnButtonOnClick() {
+        AudioFXPlayer.Instance.PlaySound(AudioFXPlayer.SoundEffect.buttonClick);
         UiManager.Instance.ExitSettings();
     }
 
     private void ResetValuesButtonOnClick() {
+        AudioFXPlayer.Instance.PlaySound(AudioFXPlayer.SoundEffect.buttonClick);
         AudioManager.Instance.SetVolume(AudioManager.AudioGroup.Master, 0.5f);
         AudioManager.Instance.SetVolume(AudioManager.AudioGroup.Music, 0.5f);
         AudioManager.Instance.SetVolume(AudioManager.AudioGroup.SFX, 0.5f);

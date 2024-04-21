@@ -7,9 +7,16 @@ public class ApplyCards : MonoBehaviour, IInteractable
 
     [SerializeField] GameObject cardsMenu;
 
+    [SerializeField] Monke m1;
+    [SerializeField] Monke m2;
+    [SerializeField] Monke m3;
+
     public void Clicked()
     {
-        cardsMenu.SetActive(false);
+        if(m1.isReady() && m2.isReady() && m3.isReady())
+        {
+            cardsMenu.SetActive(false);
+        }
     }
 
     // Start is called before the first frame update

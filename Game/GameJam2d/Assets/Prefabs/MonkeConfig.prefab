@@ -181,6 +181,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardsMenu: {fileID: 505130508793732720}
+  m1: {fileID: 0}
+  m2: {fileID: 0}
+  m3: {fileID: 0}
 --- !u!1 &9199019446619248566
 GameObject:
   m_ObjectHideFlags: 0
@@ -718,6 +721,10 @@ PrefabInstance:
     - target: {fileID: 5903277103199738090, guid: 865176d41888a6240a00737cc69a7024, type: 3}
       propertyPath: spacing
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5903277103199738090, guid: 865176d41888a6240a00737cc69a7024, type: 3}
+      propertyPath: stashGO
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -129,4 +129,12 @@ public class Monke : MonoBehaviour, IInteractable, IStash
         }
         return cardAmount <2;
     }
+
+
+    public bool isReady()
+    {
+        return cards.Count >2;
+    }
+
+
 }
