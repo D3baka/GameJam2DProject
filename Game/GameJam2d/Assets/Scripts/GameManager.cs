@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Gridmanager gridmanager;
         
     [SerializeField] private int playerMaxHitpoints;
-    [SerializeField] private MainSceneUIManager mainSceneUIManager;
+    [SerializeField] private UiManager mainSceneUIManager;
     private int playerHitpoints;
 
     [SerializeField] private int coinCount;
@@ -86,6 +86,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void ChangeGameState(GameState _gameState)
+    {
+        if (gameState == _gameState)
+            return;
+        gameState = _gameState;
+        OnGameStateChanged?.Invoke(this, new OnGameStateChangedEventArgs { gameState = gameState });
+    }
     public void NextTurn()
     {
         gridmanager.NextTurn();

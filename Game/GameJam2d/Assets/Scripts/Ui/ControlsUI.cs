@@ -4,18 +4,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// Used exclusively for the main menu - for everywhere else use <c>ControlsUI</c>
-/// </summary>
 public class ControlsUI : MonoBehaviour
 {
-    
-    [SerializeField] private PauseUIManager pauseUIManager;
-
     [SerializeField] private Button pauseButton;
     [SerializeField] private TextMeshProUGUI pauseButtonText;
     [SerializeField] private Button interactButton;
-    [SerializeField] private TextMeshProUGUI interactButtonText;
+    [SerializeField] private TextMeshProUGUI interactButtonText;    
     [SerializeField] private Button resetToDefaultsButton;
     [SerializeField] private Button returnButton;
 
@@ -34,7 +28,7 @@ public class ControlsUI : MonoBehaviour
     }
 
     private void ReturnButtonOnClick() {
-        pauseUIManager.EnterSubMenu(pauseUIManager.pauseUI);
+        UiManager.Instance.ExitControls();
     }
 
     private void UpdateVisual() {
@@ -60,6 +54,6 @@ public class ControlsUI : MonoBehaviour
 
     private void ResetToDefaultsButtonOnClick() {
         UserInput.Instance.ResetAllBindings();
-        UpdateVisual ();
+        UpdateVisual();
     }
 }
