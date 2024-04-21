@@ -40,12 +40,17 @@ public class Shop : MonoBehaviour, IStash
     // Start is called before the first frame update
     void Start()
     {
-        prices.Add(Card.Type.SHIELD, 1);
-        prices.Add(Card.Type.SHOOT, 2);
-        prices.Add(Card.Type.SHUFFLE, 0);
+        prices.Add(Card.Type.LEFT, 3);
+        prices.Add(Card.Type.FORWARD, 3);
+        prices.Add(Card.Type.RIGHT, 3);
+        prices.Add(Card.Type.SHOOT, 5);
+        prices.Add(Card.Type.SHIELD, 10);
+        prices.Add(Card.Type.SHOP, 15);
+        prices.Add(Card.Type.SHUFFLE, 12);
+        prices.Add(Card.Type.CONIFGURE_MONKE, 15);
 
 
-        for(int i = 0; i < prices.Keys.Count; i++)
+        for (int i = 0; i < prices.Keys.Count; i++)
         {
             cardGrid.AddCard(new List<Card.Type>(prices.Keys)[i]);
         }
