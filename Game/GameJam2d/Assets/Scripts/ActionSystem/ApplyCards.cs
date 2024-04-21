@@ -2,12 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestMaster : MonoBehaviour
+public class ApplyCards : MonoBehaviour, IInteractable
 {
+
+    [SerializeField] GameObject cardsMenu;
+
+    public void Clicked()
+    {
+        cardsMenu.SetActive(false);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        CardStash stash = new CardStash();
+        
     }
 
     // Update is called once per frame
