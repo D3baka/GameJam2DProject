@@ -1225,11 +1225,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 093dd50848acb4246b8b6dbc9d01d13e, type: 3}
---- !u!1 &1145431489 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2670972287382679007, guid: 093dd50848acb4246b8b6dbc9d01d13e, type: 3}
-  m_PrefabInstance: {fileID: 1141039041}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1149455002
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1841,55 +1836,6 @@ MonoBehaviour:
   - {fileID: -1986931680, guid: 27e0e5b78905c4f42a1c8eb282fd220b, type: 3}
   - {fileID: -1674076882, guid: 27e0e5b78905c4f42a1c8eb282fd220b, type: 3}
   extraAnimation2: []
---- !u!1 &1370175343
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1370175345}
-  - component: {fileID: 1370175344}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1370175344
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1370175343}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f09bb6ff326b4c8409309c03f460245d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gridmanager: {fileID: 1204225457}
-  monkeConfig: {fileID: 2376532328805331629}
-  shop: {fileID: 1145431489}
-  playerMaxHitpoints: 3
-  coinCount: 0
---- !u!4 &1370175345
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1370175343}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1380757165
 GameObject:
   m_ObjectHideFlags: 0
