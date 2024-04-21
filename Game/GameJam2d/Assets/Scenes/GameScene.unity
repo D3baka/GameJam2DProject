@@ -348,6 +348,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &361655569 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 505130508793732720, guid: fa5633d25829eb94abcbefab60fe1e62, type: 3}
+  m_PrefabInstance: {fileID: 2376532328805331628}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &383130814
 GameObject:
   m_ObjectHideFlags: 0
@@ -1276,7 +1281,7 @@ GameObject:
   - component: {fileID: 1370175345}
   - component: {fileID: 1370175344}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1295,6 +1300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridmanager: {fileID: 1204225457}
+  monkeConfig: {fileID: 361655569}
   playerMaxHitpoints: 3
   mainSceneUIManager: {fileID: 0}
   coinCount: 0
