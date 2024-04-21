@@ -8,8 +8,6 @@ public class ControlsUI : MonoBehaviour
 {
     [SerializeField] private Button pauseButton;
     [SerializeField] private TextMeshProUGUI pauseButtonText;
-    [SerializeField] private Button interactButton;
-    [SerializeField] private TextMeshProUGUI interactButtonText;    
     [SerializeField] private Button resetToDefaultsButton;
     [SerializeField] private Button returnButton;
 
@@ -17,8 +15,7 @@ public class ControlsUI : MonoBehaviour
 
     private void Awake() {
         returnButton.onClick.AddListener(ReturnButtonOnClick);
-        pauseButton.onClick.AddListener(() => { RebindBinding(UserInput.Binding.Pause); });        
-        interactButton.onClick.AddListener(() => { RebindBinding(UserInput.Binding.Interact); });
+        pauseButton.onClick.AddListener(() => { RebindBinding(UserInput.Binding.Pause); });
         resetToDefaultsButton.onClick.AddListener(ResetToDefaultsButtonOnClick);
     }
 
@@ -33,7 +30,6 @@ public class ControlsUI : MonoBehaviour
 
     private void UpdateVisual() {
         pauseButtonText.text = UserInput.Instance.GetBindingText(UserInput.Binding.Pause);
-        interactButtonText.text = UserInput.Instance.GetBindingText(UserInput.Binding.Interact);
     }
 
     private void ShowPressToRebindUi() {
