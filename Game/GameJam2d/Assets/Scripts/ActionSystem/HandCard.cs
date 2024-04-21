@@ -21,7 +21,8 @@ public class HandCard : MonoBehaviour, IInteractable
 
     public void Clicked()
     {
-       hand.playCard(index);
+        if(GameManager.Instance.gameState == GameManager.GameState.Running)
+            hand.playCard(index);
     }
 
     public void setType(Card.Type type)
