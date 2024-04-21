@@ -60,24 +60,7 @@ public class GameManager : MonoBehaviour
     
 
     private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            NextTurn();
-        }
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            PlayCard(Card.Type.LEFT);
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            PlayCard(Card.Type.RIGHT);
-        }
-        if (Input.GetKeyDown(KeyCode.KeypadEnter))
-        {
-            PlayCard(Card.Type.SHOOT);
-        }
-
+    {        
         if(gameState == GameState.Running)
         {
             typingSoundTimer -= Time.deltaTime;
