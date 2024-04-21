@@ -11,6 +11,10 @@ public class Shop : MonoBehaviour, IStash
     [SerializeField] CardGrid cardGrid;
     [SerializeField] CardStash cardStash;
 
+    public bool acceptCard(Card.Type t)
+    {
+        return true;
+    }
 
     public void addCard(Card.Type type)
     {
@@ -40,7 +44,7 @@ public class Shop : MonoBehaviour, IStash
     // Start is called before the first frame update
     void Start()
     {
-        prices.Add(Card.Type.LEFT, 3);
+        prices.Add(Card.Type.LEFT, 0);
         prices.Add(Card.Type.FORWARD, 3);
         prices.Add(Card.Type.RIGHT, 3);
         prices.Add(Card.Type.SHOOT, 5);

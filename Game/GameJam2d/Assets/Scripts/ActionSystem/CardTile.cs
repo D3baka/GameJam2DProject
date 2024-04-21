@@ -109,6 +109,11 @@ public class CardTile : MonoBehaviour
 
     public bool setTile(Card.Type t)
     {
+        if (!stash.acceptCard(t))
+        {
+            return false;
+        }
+
         if(!stackable)
         {
             if(type != Card.Type.BLANK)

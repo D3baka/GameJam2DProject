@@ -76,4 +76,9 @@ public class CardStash : MonoBehaviour, IStash
     {
         throw new System.NotImplementedException();
     }
+
+    public bool acceptCard(Card.Type t)
+    {
+        return true;
+    }
 }
