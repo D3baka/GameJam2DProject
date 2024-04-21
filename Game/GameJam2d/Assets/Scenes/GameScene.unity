@@ -1620,7 +1620,6 @@ MonoBehaviour:
   gridmanager: {fileID: 1204225457}
   monkeConfig: {fileID: 2376532328805331629}
   playerMaxHitpoints: 3
-  mainSceneUIManager: {fileID: 0}
   coinCount: 0
 --- !u!4 &1370175345
 Transform:

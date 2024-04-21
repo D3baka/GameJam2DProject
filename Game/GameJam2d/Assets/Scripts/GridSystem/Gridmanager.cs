@@ -245,6 +245,10 @@ public class Gridmanager : MonoBehaviour
             OnShipCollidedWithTileBlocker(stationary);            
             return;
         }
+        if (moving.GetGameObject().GetComponent<Projectile>() != null || stationary.GetGameObject().GetComponent<Projectile>() != null)
+        {
+            AudioFXPlayer.Instance.PlaySound(AudioFXPlayer.SoundEffect.projectileHitSound);
+        }
         DestroyTileBlocker(moving);
         DestroyTileBlocker(stationary);        
     }
@@ -256,17 +260,20 @@ public class Gridmanager : MonoBehaviour
             Debug.Log("Ship hit Asteroid");
             DestroyTileBlocker(other);
             GameManager.Instance.PlayerHitByAsteroid();
+            AudioFXPlayer.Instance.PlaySound(AudioFXPlayer.SoundEffect.shipHitSound);
         }
         if (other.GetGameObject().GetComponent<AsteroidCore>() != null)
         {
             Debug.Log("Ship hit Asteroid");
             DestroyTileBlocker(other);
             GameManager.Instance.PlayerHitByAsteroid();
+            AudioFXPlayer.Instance.PlaySound(AudioFXPlayer.SoundEffect.shipHitSound);
         }
         if (other.GetGameObject().GetComponent<Coin>() != null)
         {            
             DestroyTileBlocker(other);
             GameManager.Instance.AddCoins(1);
+            AudioFXPlayer.Instance.PlaySound(AudioFXPlayer.SoundEffect.getCoinSound);
         }
 
     }
@@ -335,11 +342,13 @@ public class Gridmanager : MonoBehaviour
     public void PlayerShoot()
     {
         SpawnTileBlocker(SpaceGridTileBlocker.Projectile, playerShip.xPosition, playerShip.yPosition + 1, Projectile.FlightDirection.UP);
+        AudioFXPlayer.Instance.PlaySound(AudioFXPlayer.SoundEffect.projectileFireSound);
     }
 
     public void ActivateShield()
     {
         playerShip.shieldVisual.SetActive(true);
+        AudioFXPlayer.Instance.PlaySound(AudioFXPlayer.SoundEffect.getShieldSound);
     }
 
     public void DeactivateShield()
@@ -348,7 +357,7 @@ public class Gridmanager : MonoBehaviour
     }
 
     public void MovePlayerRandom()
-    {
+    {        
         int randomIndex = UnityEngine.Random.Range(0, 2);
         if(randomIndex == 0)
         {
