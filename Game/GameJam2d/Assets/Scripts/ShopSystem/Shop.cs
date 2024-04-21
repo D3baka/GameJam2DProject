@@ -74,6 +74,7 @@ public class Shop : MonoBehaviour, IStash
 
     public int getPrice(Card.Type type)
     {
+        if (!prices.ContainsKey(type)) return -1;
         return prices[type];
     }
 }
