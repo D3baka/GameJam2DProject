@@ -144,8 +144,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delaySeconds: 1
-  delaySecondsMin: 0.9
-  delaySecondsMax: 1.1
+  delaySecondsMin: 2
+  delaySecondsMax: 5
   randomize: 1
   startSize: {x: 1, y: 1}
   endSize: {x: 1.1, y: 1.1}
@@ -168,7 +168,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: aebfe1b10984a3e44aa4fcd56bda1a52, type: 3}
   renderer: {fileID: 80336091687520831}
   delaySeconds: 1
-  delaySecondsMin: 0.9
-  delaySecondsMax: 1.1
+  delaySecondsMin: 2
+  delaySecondsMax: 5
   randomize: 1
   extraAnimation: []
