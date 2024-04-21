@@ -57,7 +57,7 @@ public class Monke : MonoBehaviour, IInteractable, IStash
 
     public void removeCard(Card.Type card)
     {
-        Debug.Log("Das hier wird entfernt: "+ card);
+        //Debug.Log("Das hier wird entfernt: "+ card);
         cards.Remove((int)card);
     }
 
@@ -104,7 +104,7 @@ public class Monke : MonoBehaviour, IInteractable, IStash
 
     public void changeCard(Card.Type oldCard, Card.Type newCard)
     {
-        Debug.Log("old card " + oldCard + " to " + newCard);
+        //Debug.Log("old card " + oldCard + " to " + newCard);
         removeCard(oldCard);
         if(newCard != Card.Type.BLANK)
         {

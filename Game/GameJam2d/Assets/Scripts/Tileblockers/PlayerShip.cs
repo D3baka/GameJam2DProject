@@ -25,7 +25,7 @@ public class PlayerShip : MonoBehaviour, ITileblocker
 
     public void SetGridPosition(Vector2 position)
     {
-        Debug.Log("Setting playership position to: " +  position);
+        //Debug.Log("Setting playership position to: " +  position);
         xPosition = (int)position.x;
         yPosition = (int)position.y;
 

@@ -98,7 +98,7 @@ public class CardTile : MonoBehaviour
                     if (hit.collider.gameObject.GetComponent<CardTile>().setTile(type))
                     {
                         amount--;
-                        Debug.Log("Es wurde eins abgezogen jetztz simmer noch: " + amount);
+                        //Debug.Log("Es wurde eins abgezogen jetztz simmer noch: " + amount);
                         if (amount <= 0)
                         {
                             setTile(Card.Type.BLANK);

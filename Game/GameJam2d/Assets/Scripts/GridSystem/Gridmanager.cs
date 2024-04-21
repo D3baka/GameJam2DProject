@@ -84,8 +84,8 @@ public class Gridmanager : MonoBehaviour
                 ITileblocker toMove;
                 if(grid.GetTileBlockerFromPosition(x,y, out toMove))
                 {
-                    Debug.Log("Testrn");
-                    Debug.Log(toMove.GetGameObject() == null);
+                    //Debug.Log("Testrn");
+                    //Debug.Log(toMove.GetGameObject() == null);
                     if(toMove.GetGameObject().GetComponent<PlayerShip>() != null || toMove.GetGameObject().GetComponent<Projectile>() != null)
                     {
                         //Do nothing because we do not move the player or projectiles in turns
@@ -257,14 +257,14 @@ public class Gridmanager : MonoBehaviour
     {        
         if (other.GetGameObject().GetComponent<Asteroid>() != null)
         {
-            Debug.Log("Ship hit Asteroid");
+            //Debug.Log("Ship hit Asteroid");
             DestroyTileBlocker(other);
             GameManager.Instance.PlayerHitByAsteroid();
             AudioFXPlayer.Instance.PlaySound(AudioFXPlayer.SoundEffect.shipHitSound);
         }
         if (other.GetGameObject().GetComponent<AsteroidCore>() != null)
         {
-            Debug.Log("Ship hit Asteroid");
+            //Debug.Log("Ship hit Asteroid");
             DestroyTileBlocker(other);
             GameManager.Instance.PlayerHitByAsteroid();
             AudioFXPlayer.Instance.PlaySound(AudioFXPlayer.SoundEffect.shipHitSound);
@@ -761,7 +761,7 @@ public class Gridmanager : MonoBehaviour
 
         }
 
-        Debug.Log("COLLAPSED READY");
+        //Debug.Log("COLLAPSED READY");
 
         collapseRow(y);
 

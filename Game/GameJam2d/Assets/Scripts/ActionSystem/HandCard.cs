@@ -50,7 +50,7 @@ public class HandCard : MonoBehaviour, IInteractable
     {
         this.type = type;
 
-        Debug.Log("Set type");
+        //Debug.Log("Set type");
 
         timer = playCardAnimationTime;
 
