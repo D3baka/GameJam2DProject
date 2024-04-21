@@ -46,13 +46,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardIcons:
   - {fileID: -22296786, guid: b1618dae1337ada41ab8acba5e0d36d1, type: 3}
-  - {fileID: 148382162, guid: 0d22374c3e7d5fc428731a725e69ff50, type: 3}
-  - {fileID: -1330878914, guid: 0d22374c3e7d5fc428731a725e69ff50, type: 3}
-  - {fileID: 642326657, guid: 0d22374c3e7d5fc428731a725e69ff50, type: 3}
-  - {fileID: 1846484700, guid: 0d22374c3e7d5fc428731a725e69ff50, type: 3}
-  - {fileID: 624822704, guid: 0d22374c3e7d5fc428731a725e69ff50, type: 3}
-  - {fileID: 420221330, guid: 0d22374c3e7d5fc428731a725e69ff50, type: 3}
-  - {fileID: 939293642, guid: 0d22374c3e7d5fc428731a725e69ff50, type: 3}
-  - {fileID: -341895655, guid: 0d22374c3e7d5fc428731a725e69ff50, type: 3}
-  - {fileID: -1736365323, guid: 0d22374c3e7d5fc428731a725e69ff50, type: 3}
-  - {fileID: 428174571, guid: 0d22374c3e7d5fc428731a725e69ff50, type: 3}
+  - {fileID: 1876602931, guid: e501bb94b9664be4290fae75a99349a3, type: 3}
+  - {fileID: 1147588517, guid: e501bb94b9664be4290fae75a99349a3, type: 3}
+  - {fileID: 21300000, guid: 4d3bd829c365ab54f8a7d728e11bc33a, type: 3}
+  - {fileID: 1491911058, guid: e501bb94b9664be4290fae75a99349a3, type: 3}
+  - {fileID: 21300000, guid: f37211f52bd0f184ca728ddd671ae7c2, type: 3}
+  - {fileID: 21300000, guid: 7bdc4ab11a6441348b26293dd9d9be7b, type: 3}
+  - {fileID: 21300000, guid: c5c8e39be7f5b034eaae6490f8fa9f37, type: 3}
+  - {fileID: 21300000, guid: c1699f3331e545d4d9f1c8f1d9e351c9, type: 3}
+  - {fileID: 21300000, guid: f2ab2e8dacce96e4bb8bcc69b9d606b5, type: 3}
+  - {fileID: 21300000, guid: bca23bd661732a34bb4b6bb2b047b5e0, type: 3}
