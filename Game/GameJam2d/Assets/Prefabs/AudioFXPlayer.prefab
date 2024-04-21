@@ -44,10 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5259ebafc388ed6438a013889a55ff57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  randomMoveSound: {fileID: 8300000, guid: d30ac1a0456c50845b4d8eeff644bcee, type: 3}
+  randomMoveSound: {fileID: 8300000, guid: ac427be29df850c4bb7644fd262247f6, type: 3}
   getCoinSound: {fileID: 8300000, guid: def0e9b2169ba2d49af17630ecbb59d1, type: 3}
   shipHitSound: {fileID: 8300000, guid: fa308fa5b47497c419a6f9f9f178eead, type: 3}
   projectileHitSound: {fileID: 8300000, guid: 4b3fc472ee135724184ae9c3d853a8a0, type: 3}
   projectileFireSound: {fileID: 8300000, guid: 21ec54e7a87b5d1439e6b7a58dc89a7a, type: 3}
   getShieldSound: {fileID: 8300000, guid: dee0b5308735ed144a515eb58d7fdc6d, type: 3}
+  monkeyTyping: {fileID: 8300000, guid: 63b4d90ad99190a4fb5903f04b451c22, type: 3}
+  monkeyScreaming: {fileID: 8300000, guid: 980d52eab778f794f8007284cf4b288a, type: 3}
   gameOverSound: {fileID: 8300000, guid: acaeeb90784c17947ae11237d47ab894, type: 3}
+  positiveMonkey: {fileID: 8300000, guid: d467693bb30347745b1d9cd668fba8cc, type: 3}
+  shipMove: {fileID: 8300000, guid: 439343636f6945d4bad7d22f5ae9f600, type: 3}
