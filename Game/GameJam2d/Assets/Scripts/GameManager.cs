@@ -149,7 +149,7 @@ public class GameManager : MonoBehaviour
 
     public void RemoveCoins(int amount)
     {
-        if(coinCount - amount <= 0)
+        if(coinCount - amount >= 0)
         {
             coinCount -= amount;
         }

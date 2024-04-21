@@ -11,6 +11,7 @@ public class Shop : MonoBehaviour, IStash
     [SerializeField] CardGrid cardGrid;
     [SerializeField] CardStash cardStash;
 
+
     public bool acceptCard(Card.Type t)
     {
         return true;
@@ -27,7 +28,6 @@ public class Shop : MonoBehaviour, IStash
         {
             GameManager.Instance.RemoveCoins(prices[type]);
             cardStash.addNewCard(type);
-            Debug.Log("buyed");
         }
     }
 
@@ -64,5 +64,11 @@ public class Shop : MonoBehaviour, IStash
     void Update()
     {
         
+    }
+
+
+    public int getPrice(Card.Type type)
+    {
+        return prices[type];
     }
 }

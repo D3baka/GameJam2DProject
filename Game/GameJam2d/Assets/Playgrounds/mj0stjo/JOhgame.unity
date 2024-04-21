@@ -1923,9 +1923,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 174501519726254416, guid: 093dd50848acb4246b8b6dbc9d01d13e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2670972287382679007, guid: 093dd50848acb4246b8b6dbc9d01d13e, type: 3}
       propertyPath: m_Name
       value: Shop
+      objectReference: {fileID: 0}
+    - target: {fileID: 2670972287382679007, guid: 093dd50848acb4246b8b6dbc9d01d13e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6585519218132835824, guid: 093dd50848acb4246b8b6dbc9d01d13e, type: 3}
       propertyPath: cardStash
