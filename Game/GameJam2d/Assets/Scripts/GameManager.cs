@@ -131,6 +131,7 @@ public class GameManager : MonoBehaviour
         }
         if(card == Card.Type.DO_RANDOM_MOVE)
         {
+            AudioFXPlayer.Instance.PlaySound(AudioFXPlayer.SoundEffect.randomMoveSound);
             gridmanager.MovePlayerRandom();
             return;
         }
