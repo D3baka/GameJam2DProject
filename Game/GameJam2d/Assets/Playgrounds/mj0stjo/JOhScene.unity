@@ -1845,10 +1845,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: MonkeConfig
       objectReference: {fileID: 0}
+    - target: {fileID: 764080873204658755, guid: fa5633d25829eb94abcbefab60fe1e62, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4534383358942537273, guid: fa5633d25829eb94abcbefab60fe1e62, type: 3}
       propertyPath: stashGO
       value: 
       objectReference: {fileID: 1149455003}
+    - target: {fileID: 4989703372893046884, guid: fa5633d25829eb94abcbefab60fe1e62, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5694866385371566905, guid: fa5633d25829eb94abcbefab60fe1e62, type: 3}
       propertyPath: stashGO
       value: 
