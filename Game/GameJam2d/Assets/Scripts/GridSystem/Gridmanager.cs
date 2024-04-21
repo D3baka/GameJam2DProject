@@ -51,7 +51,7 @@ public class Gridmanager : MonoBehaviour
 
 
 
-        Vector3 offset = new Vector3(-(11.0f / 2 * 2.0f), -11.0f + 6.45f -2.0f , 0);
+        Vector3 offset = new Vector3(-(11.0f / 2 * 2.0f), -11.0f + 6.45f -3.2f , 0);
        
         grid = new Grid(11, 11, 2, offset);
 
