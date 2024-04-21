@@ -7,7 +7,7 @@ public class SpriteAnimator : MonoBehaviour
     
     [SerializeField] private Sprite[] idleSprites;
 
-    [SerializeField] private SpriteRenderer spriteRenderer;
+    private SpriteRenderer spriteRenderer;
     [SerializeField] private float delaySeconds;
     [SerializeField] private float delaySecondsMin;
     [SerializeField] private float delaySecondsMax;
@@ -104,5 +104,12 @@ public class SpriteAnimator : MonoBehaviour
     public void stopAnimation2()
     {
         playExtraAnimation2 = false;
+    }
+
+    public void setIdleSprite(Sprite sprite)
+    {
+        // clear idleSprites
+        idleSprites = new Sprite[1];
+        idleSprites[0] = sprite;
     }
 }
