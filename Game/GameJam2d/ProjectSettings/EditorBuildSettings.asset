@@ -5,19 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
-  - enabled: 0
-    path: Assets/Playgrounds/mj0stjo/TestScene.unity
-    guid: 07d4c311a98d3db40a12c3689f399778
   - enabled: 1
-    path: Assets/Playgrounds/D3baka/MainMenu.unity
-    guid: 8f0af51556597ab4c814e59f010b994a
+    path: Assets/Scenes/MainMenu.unity
+    guid: d412d9ccdd9a6a343a752476e09e92dd
   - enabled: 1
     path: Assets/Scenes/LoadingScene.unity
     guid: 82d93314030988049b6c2f14f91562f8
   - enabled: 1
-    path: Assets/Playgrounds/D3baka/GameScene.unity
-    guid: 215d33964da8f9c49bc899e1c0b15d56
+    path: Assets/Scenes/GameScene.unity
+    guid: 0a038f4e0fddb1b409c34d34457a0d29
   m_configObjects: {}
